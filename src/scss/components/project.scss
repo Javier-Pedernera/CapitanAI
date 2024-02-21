@@ -1,0 +1,38 @@
+.project-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .frontend-section,
+  .backend-section,
+  .description-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: var(--primary-color);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+
+      input[type='checkbox'] {
+        margin-right: 5px;
+      }
+
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-top: 5px;
+      }
+    }
+  }
+}

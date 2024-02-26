@@ -1,38 +1,95 @@
-.project-page {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.project-container {
+  font-family: var(--font-robotoSerif);
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  // border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
-  .frontend-section,
-  .backend-section,
-  .description-section {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 5px;
+.add-stage {
+  margin-top: 20px;
+}
 
-    h2 {
-      margin-bottom: 10px;
-      font-size: 20px;
-      color: var(--primary-color);
-    }
+.add-stage input {
+  margin-right: 10px;
+}
 
-    label {
-      display: block;
-      margin-bottom: 10px;
+.add-stage button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-      input[type='checkbox'] {
-        margin-right: 5px;
-      }
+.add-stage button:hover {
+  background-color: #0056b3;
+}
 
-      select,
-      textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 16px;
-        margin-top: 5px;
-      }
-    }
+.delete_edit{
+display: flex;
+justify-content: space-between;
+}
+
+.create-stage-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--yellow-color);
+    color: var(--primary-color);
   }
+}
+.stage-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.stage-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.stage-divider {
+  border-top: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.edit-button{
+  font-size: 20px;
+  color: rgb(137, 136, 136);
+&:hover{
+  font-size: 25px;
+  color: var(--primary-color);
+}
+}
+.delete-button{
+  font-size: 20px;
+  color: rgb(137, 136, 136);
+  &:hover{
+    font-size: 25px;
+    color: var(--primary-color);
+  }
+}
+.edit-delete{
+  height: 30px;
+}
+
+.titleProject{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -29,16 +29,16 @@ const Slice = createSlice({
                 projects: action.payload
             };
         },
-        // selectVoice: (state, action) => {
-        //     state.projectActual = action.payload;
-        // },userActive.userData && 'id' in userActive.userData ? userActive.userData.id:""
-        // removeProject: (state, action) => {
-        //     state.projects = state.projects.filter(project => project.id !== action.payload);
-        // },
+        getProjectByID:(state, action) => {
+            return {
+                ...state,
+                projectActual: action.payload
+            };
+        },
       
     }
 });
 
 
-export const { compare, projectCreate, userProjects } = Slice.actions;
+export const { compare, projectCreate, userProjects, getProjectByID } = Slice.actions;
 export default Slice.reducer;

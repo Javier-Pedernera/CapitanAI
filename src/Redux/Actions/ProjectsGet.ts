@@ -1,6 +1,6 @@
 // import { Dispatch } from "@reduxjs/toolkit";
 import axios from "axios";
-import { userProjects } from "./ProjectsSlice";
+import { getProjectByID, userProjects } from "./ProjectsSlice";
 import { Dispatch } from "@reduxjs/toolkit";
 import ProjectUpdate from "../../components/Models/ProjectUp";
 // import projectCreate from "./ProjectsSlice"
@@ -68,6 +68,22 @@ const updateProject = (projectId:string, data: ProjectUpdate) => {
 		}
 	};
 };
+
+const getProjectActual = (projectID:string) => {
+	const URL = import.meta.env.VITE_API_URL
+    return async (dispatch:Dispatch) => {
+		try {
+			const response = await axios.get(`${URL}/api/projects/${projectID}`);
+            console.log("response en action",response);
+            const res = dispatch(getProjectByID(response.data))
+			return res
+		} catch (error:any) {
+			console.error('error en createProject', error);
+		}
+	};
+};
+ 
+
 export {
-	createProject, getProjectsUser, deleteProject, updateProject
+	createProject, getProjectsUser, deleteProject, updateProject, getProjectActual
 }

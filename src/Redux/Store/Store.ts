@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import user from "../Actions/UserSlice"
 // import messages from '../Actions/MessageSlice';
 import projects from '../Actions/ProjectsSlice';
+import stages from '../Actions/StagesSlice';
 
 export const store = configureStore({
     reducer: {
        user: user,
     //    messages: messages,
-       projects:projects
+       projects:projects,
+       stages: stages
     },
 });
 // Documentacion Redux

@@ -1,15 +1,20 @@
-import './App.scss'
+import { BrowserRouter,  Routes } from "react-router-dom";
+import { renderRoutes, routes } from "./router/index";
+// import { Provider } from "react-redux";
+// import store from "./Redux/Store/Store";
+// import { renderRoutes, routes } from "./routes";
 
-function App() {
- 
 
+const App = () => {
   return (
-    <>
-      <div>
-       Hello world!!!
-      </div>
-    </>
-  )
-}
 
-export default App
+    <BrowserRouter>
+      <Routes>
+        {/* <Route path="/" element={Home}/> */}
+        {renderRoutes(routes)}
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;

@@ -26,7 +26,7 @@ const createStage = (projectId: string, data: any) => {
 
 			const JoinStageProject = await axios.post(`${URL}/api/projects/${projectId}/stages`, idStage);
 			// const res = dispatch(project_StageCreate())
-			return { response, JoinStageProject }
+			return JoinStageProject
 		} catch (error: any) {
 			console.error('error en createProject', error);
 		}
@@ -38,7 +38,7 @@ const getStagesbyProjectId = (projectId: string) => {
 	return async (dispatch: Dispatch) => {
 		try {
 			const response = await axios.get(`${URL}/api/projects/${projectId}/stages`);
-			// console.log(response);
+			console.log(response);
 			const res = dispatch(stageByProyect(response.data))
 			return res
 		} catch (error: any) {
@@ -66,20 +66,19 @@ const stageDeleted = (projectId: string, stageId:string) => {
 		}
 	};
 };
-// const updateProject = (projectId:string, data: ProjectUpdate) => {
-// 	const URL = import.meta.env.VITE_API_URL
-//     return async () => {
-// 		try {
-// 			const responseUpdate = await axios.put(`${URL}/api/projects/${projectId}`,data);
-//             console.log(responseUpdate);
-//             // const response = await axios.get(`${URL}/api/projects/user/${userId}`);
-//             // const res = dispatch(userProjects(response.data))
-// 			return { projectData: responseUpdate.data, status: 200 };
-// 		} catch (error:any) {
-// 			console.error('error en createProject', error);
-// 		}
-// 	};
-// };
+const editStage = (stageID:string, data: any) => {
+	const URL = import.meta.env.VITE_API_URL
+    return async () => {
+		try {
+			const responseUpdate = await axios.put(`${URL}/api/stages/${stageID}`,data);
+            console.log(responseUpdate);
+            
+			return { projectData: responseUpdate.data, status: 200 };
+		} catch (error:any) {
+			console.error('error en createProject', error);
+		}
+	};
+};
 export {
-	createStage, getStagesbyProjectId, stageDeleted
+	createStage, getStagesbyProjectId, stageDeleted, editStage
 }

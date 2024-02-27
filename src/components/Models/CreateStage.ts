@@ -1,7 +1,7 @@
 interface CreateStage {
+    description: string;
     id: string;
     name: string;
-    description: string
   }
   
   export default CreateStage;

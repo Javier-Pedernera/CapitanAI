@@ -19,10 +19,10 @@ const Slice = createSlice({
         //     if (state.projects.length < action.payload.length)
         //         state.projects = action.payload;
         // },
-        stageCreate: (state, action) => {
-            console.log(state, action);
+        // stageCreate: (state, action) => {
+        //     // console.log(state, action);
             
-        },
+        // },
         stageByProyect: (state, action) => {
             return {
                 ...state,
@@ -40,5 +40,5 @@ const Slice = createSlice({
 });
 
 
-export const {  stageCreate, stageByProyect } = Slice.actions;
+export const {   stageByProyect } = Slice.actions;
 export default Slice.reducer;

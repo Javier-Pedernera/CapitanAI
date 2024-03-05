@@ -6,15 +6,19 @@
       height: auto;
     }
     h2 {
-      color: #0f0c06cd;
-      font-size: 24px;
-      margin-bottom: 20px;
+      font-family: var(--font-robotoSerif);
+      // --font-poppins: "Poppins", sans-serif;
+    // --font-robotoFlex: "Roboto Flex", sans-serif;
+    // --font-robotoSerif: "Roboto Serif", serif;
+      color: #2e291dcd;
+      font-size: 20px;
+      margin-bottom: 10px;
       text-align: center;
     }
-  
+   
     .btn {
       margin-bottom: 10px;
-      padding: 8px 16px;
+      padding: 8px 8px;
       border: none;
       border-radius: 4px;
       background-color: var(--primary-color);
@@ -27,12 +31,21 @@
         color: var(--primary-color);
       }
     }
+    .sinProyecto{
+      margin-top: 50px;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .btnEdithDel{
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
     }
     .dashboard-table {
+      font-family: var(--font-robotoFlex);
       width: 100%;
       border-collapse: collapse;
   
@@ -143,4 +156,8 @@
   }
   .ok{
     width: 30px;
+  }
+  .swal2-icon.swal2-warning.swal2-icon-show{
+    color: var(--yellow-color);
+    border-color:var(--yellow-color);
   }

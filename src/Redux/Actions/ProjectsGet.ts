@@ -16,8 +16,7 @@ const createProject = (data:ProjectCreate) => {
 	const URL = import.meta.env.VITE_API_URL
     return async () => {
 		try {
-            console.log(data);
-            
+            // console.log(data);
 			const response = await axios.post(`${URL}/api/projects`,data);
             console.log(response);
             // const res = dispatch(projectCreate())
@@ -50,7 +49,7 @@ const deleteProject = (projectId:string) => {
             // const res = dispatch(removeProject(response.data))
 			return "Project deleted"
 		} catch (error:any) {
-			console.error('error en createProject', error);
+			console.error('error en deleteProject', error);
 		}
 	};
 };

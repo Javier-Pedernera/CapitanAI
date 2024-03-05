@@ -1,0 +1,160 @@
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+  }
+  .container_all{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .container_title{
+    // position: relative;
+    display: flex;
+    // flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100%;
+    // font-family: var(--font-robotoSerif);
+    // font-family: var(--font-robotoFlex);
+    font-family: var(--font-poppins);
+    color: rgb(82, 82, 82);
+  }
+  .thread_assistant{
+    display: flex;
+    font-family: var(--font--robotoFlex);
+    font-size: 15px;
+    align-items: baseline;
+    color: rgb(82, 82, 82);
+    // width: 50%;
+  }
+  .ico-copy {
+    // position: absolute; /* Posiciona el icono sobre el texto */
+    right: 0; 
+    opacity: 0; 
+    transition: opacity 0.3s; 
+    height: 10px;
+    margin-left: 5px;
+  }
+  .thread_assistant:hover .ico-copy {
+    opacity: 1;
+  }
+  .selectAnyStage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: rgba(106, 104, 104, 0.849);
+  }
+  // .ico-copy{
+  //   margin-left: 10px;
+  //   height: 10px;
+  // }
+  .thread_content{
+    margin-left: 10px;
+    font-family: var(--font-poppins);
+    font-size: 10px;
+    font-weight: 500;
+    color: rgb(126, 124, 124);
+  }
+  .chat-messages {
+    width: 90%;
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #cccccc4d;
+    border-radius: 5px;
+    margin: 5px;
+  }
+  
+  .message {
+    margin-bottom: 10px;
+  }
+  
+  .chat-input {
+    display: flex;
+    width: 85%;
+  }
+  
+  .chat-input input {
+    flex: 1;
+    font-family: var(--font-poppins);
+    font-family: var(--font--robotoFlex);
+    font-size: small;
+    color: rgb(67, 66, 66);
+    border-bottom-color: rgb(169, 166, 166);
+    border-bottom-width: 2px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    caret-color: var(--yellow-color);
+    
+    &:focus-visible{
+      border-bottom-color:var(--yellow-color);
+      outline: none;
+      // outline-color: var(--yellow-color);
+    }
+  }
+  
+  .chat-input button {
+    margin-left: 10px;
+  }
+  .btn{
+    // margin-top: 20px;
+    // margin-bottom: 20px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 50px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    &:hover {
+      background-color: var(--yellow-color);
+      color: var(--primary-color);
+    }
+  }
+
+  .user{
+    height: 15px;
+    width: 15px;
+    background-image: url(../../assets/images/user.png);
+    background-size: cover;
+    margin-right: 10px;
+  }
+  .assistant{
+    height: 15px;
+    width: 15px;
+    background-image: url(../../assets/images/solologo.png);
+    background-size: cover;
+    margin-right: 10px;
+  }
+  .msgUser{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    font-family: var(--font-poppins);
+    font-size: smaller;
+    color: #7e7c7ce9;
+  }
+  .msgAssistant{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    // flex-direction: row-reverse;
+    // margin-right: 10px;
+    width: 100%;
+    font-family: var(--font--robotoFlex);
+    font-size: smaller;
+    color: #2a2929e9;
+  }
+  .loader{
+    height: 30px;
+    width: auto;
+  }

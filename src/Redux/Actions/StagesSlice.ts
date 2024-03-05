@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 // import Project from "../../components/Models/Project";
 
-// export interface ProyectState {
-//     stagesProyect: [];
-//     stageActual: string | null;
+// export interface stageSelected {
+
 // }
 
 const initialState = {
     stagesProyect : [],
-    stageActual: ''
+    stageSelected: {},
+    projectStageInfo:{}
 };
 
 const Slice = createSlice({
@@ -29,16 +29,22 @@ const Slice = createSlice({
                 stagesProyect: action.payload
             };
         },
-        // selectVoice: (state, action) => {
-        //     state.projectActual = action.payload;
-        // },userActive.userData && 'id' in userActive.userData ? userActive.userData.id:""
-        // removeProject: (state, action) => {
-        //     state.projects = state.projects.filter(project => project.id !== action.payload);
-        // },
+        selectStageById: (state, action) => {
+            return {
+                ...state,
+                stageSelected: action.payload
+            };
+        },
+        selectProyect_Stage: (state, action) => {
+            return {
+                ...state,
+                projectStageInfo: action.payload
+            };
+        },
       
     }
 });
 
 
-export const {   stageByProyect } = Slice.actions;
+export const {   stageByProyect, selectStageById, selectProyect_Stage } = Slice.actions;
 export default Slice.reducer;

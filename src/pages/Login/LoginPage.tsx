@@ -57,7 +57,7 @@ const Login = () => {
 
     // axios
     //   .post(`${import.meta.env.VITE_API_URL}/users/login`, data)
-    console.log(data);
+    // console.log(data);
     const username = data.email;
     const password = data.password;
     console.log("username en login", username, "password en login", password);
@@ -109,16 +109,8 @@ const Login = () => {
               <Link className="logoCapitan" to="/home">
                 <img className="capitan" src={logo} alt="logo" />
               </Link>
-
             </div>
-
-          </div>
-
           <div className="logo">
-
-            {/* <div className="title">
-              <p><span className="green">Conoce lugares,</span><br />descubrí personas</p>
-            </div> */}
             <div className="google-button" onClick={handleGoogle}>
               <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="google-img" alt="google logo" loading="lazy" />
               <span>Login with Google</span>
@@ -165,6 +157,7 @@ const Login = () => {
               <button type="submit" className="submit-button">Continuar</button>
               <Link to="/register" className="create-account-button">Crear Cuenta</Link>
             </form>
+            </div>
           </div>
         </div>
       </div>
@@ -173,30 +166,3 @@ const Login = () => {
 };
 
 export default Login;
-
-
-// import './LoginPage.scss'; // Importa los estilos Sass para esta página
-// import { AuthContext } from "../core";
-
-
-// export const LoginPage: React.FC = () => {
-//     const history = useHistory();
-//     const { setUserInfo } = React.useContext(AuthContext);
-
-//   return (
-//     <div className="login-page">
-//       <h2>Iniciar sesión</h2>
-//       <form>
-//         <div className="form-group">
-//           <label htmlFor="email">Correo electrónico:</label>
-//           <input type="email" id="email" name="email" />
-//         </div>
-//         <div className="form-group">
-//           <label htmlFor="password">Contraseña:</label>
-//           <input type="password" id="password" name="password" />
-//         </div>
-//         <button type="submit">Iniciar sesión</button>
-//       </form>
-//     </div>
-//   );
-// }

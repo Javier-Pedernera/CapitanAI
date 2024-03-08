@@ -1,16 +1,28 @@
 import { Dispatch } from "@reduxjs/toolkit";
 // import { messageAI, getOut, selectVoice, messageAdded, compare }from "./MessageSlice";
-import axios, { AxiosResponse } from "axios";
-import { getThread, getAllMessagesThread, messageUserAdded, messageAssistantAdded } from "./MessageSlice";
+import axios from "axios";
+import { getThread, getAllMessagesThread, messageUserAdded, messageAssistantAdded, createThread } from "./MessageSlice";
 
 
 const URL = import.meta.env.VITE_API_URL
 
+//crear hilo de conversacion
 
+
+const createNewThread = (datathread:any) => {
+    return async (dispatch: Dispatch) => {
+        try {
+				const response = await axios.post(`${URL}/api/threads`, datathread);
+				console.log("JoinThread response", response);
+           return dispatch(createThread(response.data))
+        } catch (error: any) {
+            console.error('error en createProject', error);
+        }
+    };
+};
 //Get hilo de conversacion
 
 const getThreadInfo = (projectId: string, stageId: string) => {
-    const URL = import.meta.env.VITE_API_URL
     return async (dispatch: Dispatch) => {
         try {
             const response = await axios.get(`${URL}/api/threads/${projectId}/${stageId}`);
@@ -27,7 +39,6 @@ const getThreadInfo = (projectId: string, stageId: string) => {
 const getAllMessages = (thread_id: string) => {
     return async (dispatch: Dispatch) => {
         try {
-            
             // usando api OpenAI
             const response = await axios.get(`${URL}/api/messages/threads/${thread_id}`);
             console.log(response);
@@ -94,7 +105,7 @@ const addMessage = (userMessage: any) => {
 // };
 
 export {
-    getThreadInfo, addMessage, getAllMessages, addUserMessage
+    getThreadInfo, addMessage, getAllMessages, addUserMessage, createNewThread
 }
 
 

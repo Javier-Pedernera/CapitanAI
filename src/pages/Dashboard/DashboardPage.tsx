@@ -4,10 +4,11 @@ import Project from '../../components/Models/Project';
 import Swal from "sweetalert2";
 import { UserState } from "../../Redux/Actions/UserSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/Store/hooks";
-import ProjectCreate, { createProject, deleteProject, getProjectsUser, updateProject } from "../../Redux/Actions/ProjectsGet";
+import ProjectCreate, { createProject, deleteProject, getProjectsUser } from "../../Redux/Actions/ProjectsGet";
 import { useEffect, useState } from "react";
 import ok from "../../assets/images/check.png";
-import ProjectUpdate from "../../components/Models/ProjectUp";
+import { GrConfigure, GrSchedulePlay } from "react-icons/gr";
+import 'balloon-css';
 
 const Dashboard = () => {
 
@@ -16,6 +17,7 @@ const Dashboard = () => {
     const userActive: UserState = useAppSelector((state: any) => state.user);
     const ProjectsUser: Project[] = useAppSelector((state: any) => state.projects.projects);
     const [userRole, setuserRole] = useState("Admin");
+    console.log(userRole);
 
     console.log(ProjectsUser);
 
@@ -23,7 +25,7 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-        if (userActive) {
+        if (userActive && userActive.userData && 'id' in userActive.userData) {
             dispatch(getProjectsUser(userActive.userData && 'id' in userActive.userData ? userActive.userData.id : "User  id"))
         }
     }, [userActive]);
@@ -68,48 +70,6 @@ const Dashboard = () => {
                 });
             }
         })()
-    };
-
-    const handleEditProject = (project: Project) => {
-        (async () => {
-            const { value: formValues } = await Swal.fire({
-                heightAuto: false,
-                title: "Edit project",
-                html: `<input  placeholder ="${project.name}" id="swal-input1" class="swal2-input">
-                <textarea placeholder ="${project.description}"  id="swal-text" class="swal2-textarea"></textarea>`,
-                focusConfirm: false,
-                preConfirm: () => {
-                    const name = document.getElementById("swal-input1") as HTMLInputElement;
-                    const description = (document.getElementById("swal-text") as HTMLInputElement).value.length ? (document.getElementById("swal-text") as HTMLInputElement).value : project.description;
-                    if (name && description) {
-                        return [name.value, description];
-                    }
-                    return null;
-                }
-            });
-            console.log(formValues);
-            const data: ProjectUpdate = {
-                name: formValues.length ? formValues[0] : "",
-                description: formValues.length ? formValues[1] : ""
-            }
-            const response = await dispatch(updateProject(project.id, data));
-            // console.log("data al dispatch",data);
-            // console.log("respuesta",response);
-            if (response?.status == 200) {
-                dispatch(getProjectsUser(userActive.userData && 'id' in userActive.userData ? userActive.userData.id : "User  id"));
-                Swal.fire({ heightAuto: false, title: `The ${formValues[0]} project was edited successfully` });
-            } else {
-                Swal.fire({
-                    heightAuto: false,
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Something went wrong!",
-                    // footer: '<a href="#">Try again...</a>'
-                });
-            }
-        })()
-
-
     };
 
     const handleDeleteProject = (projectId: string) => {
@@ -158,14 +118,16 @@ const Dashboard = () => {
         });
 
     };
-    const handleProject = (projectId: string) => {
-
-        navigate(`/${projectId}`);
-
+    const handleRunProject = (projectId: string) => {
+        navigate(`/${projectId}/run`);
+    };
+    const handleEditProject = (projectId: string) => {
+        navigate(`/${projectId}/configure`);
     };
 
     return (
         <div className="dashboard">
+            
             <h2>Projects</h2>
             {userRole == "Admin" ? <button className="btn" onClick={handleCreateProject}>New project +</button> : <div></div>}
             <table className="dashboard-table">
@@ -195,13 +157,13 @@ const Dashboard = () => {
                                 {/* finish */}
                                 {/* {project.state} */}
                             </td>
-                            <td>
+                            <td className="btns_p">
                                 <div className="btnEdithDel">
                                     <button className="btn" >See</button>
-                                    <button className="btn" onClick={() => handleProject(project.id)}>Run</button>
+                                    <button className="btn" aria-label="RUN" data-balloon-pos="down" onClick={() => handleRunProject(project.id)}><GrSchedulePlay className="icono_btn" /></button>
                                     {userRole == "Admin" ?
                                         <>
-                                            <button className="btn" onClick={() => handleEditProject(project)}>Edit</button>
+                                            <button className="btn" aria-label="SETUP" data-balloon-pos="down" onClick={() => handleEditProject(project.id)}><GrConfigure /></button>
                                             <button className="btn" onClick={() => handleDeleteProject(project.id)}>Delete</button>
                                         </> :
                                         <div></div>

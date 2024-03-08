@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import '../../scss/components/Chat.scss';
 // import CreateStage from '../Models/CreateStage';
 // import { getStagesById } from '../../Redux/Actions/StagesGet';
 import { useAppDispatch, useAppSelector } from '../../Redux/Store/hooks';
-import { addMessage, addUserMessage, getAllMessages, getThreadInfo } from '../../Redux/Actions/MessageGet';
+import { addMessage, addUserMessage, createNewThread, getAllMessages, getThreadInfo } from '../../Redux/Actions/MessageGet';
 import { useParams } from 'react-router-dom';
 import Stage from '../Models/Stage';
 import Thread from '../Models/Thread';
@@ -15,6 +14,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import MessageModel from '../Models/Message';
 import SendMessageModel from '../Models/SendMessageModel';
 import loader from '../../assets/images/loading.gif'
+import { UserState } from '../../Redux/Actions/UserSlice';
 
 interface Props {
   stage: Stage
@@ -25,12 +25,15 @@ const Chat: React.FC<Props> = ({ stage }) => {
   const threadSelected: Thread = useAppSelector((state: any) => state.messages.threadSelected);
   const ProjectStageInfo: Project_StageModel = useAppSelector((state: any) => state.stages.projectStageInfo);
   const stageMessages: MessageModel[] = useAppSelector((state: any) => state.messages.messages);
-  const [messages, setMessages] = useState<string[]>([]);
+  const userActive: UserState = useAppSelector((state: any) => state.user);
+  // const [messages, setMessages] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState<string>('');
   const [loadingMsg, setLoadingMsg] = useState(false);
   const dispatch = useAppDispatch()
   const { projectId } = useParams();
+  const containerRef = useRef(null);
 
+  console.log("userActive", userActive);
   console.log("stage en el chat", stage);
   console.log("project en el chat", projectId);
   console.log("ProjectStageInfo", ProjectStageInfo);
@@ -42,15 +45,28 @@ const Chat: React.FC<Props> = ({ stage }) => {
     if (projectId && Object.keys(stage).length) {
       dispatch(getThreadInfo(projectId, stage.id))
       dispatch(selectProyect_StageByIds(projectId, stage.id))
-      // dispatch(getAllMessages(threadSelected.thread_id
+      // dispatch(getAllMessages(threadSelected.thread_id))
     }
   }, [stage]);
+  console.log(Object.keys(threadSelected).length);
 
+  useEffect(() => {
+    if (!Object.keys(threadSelected).length && Object.keys(stage).length && projectId && userActive.userData) {
+      const datathread = {
+        "stage_id": stage.id,
+        "project_id": projectId,
+        "user_public_id": userActive.userData && 'id' in userActive.userData ? userActive.userData.id : null
+      }
+      console.log(datathread);
+      const res = dispatch(createNewThread(datathread))
+      console.log(res);
+    }
+  }, [stage]);
   useEffect(() => {
     if (threadSelected.thread_id) {
       dispatch(getAllMessages(threadSelected.thread_id))
     }
-  }, [dispatch]);
+  }, [dispatch, stage, threadSelected]);
 
   const sendMessage = async () => {
     // Enviar mensaje del usuario al backend
@@ -64,8 +80,10 @@ const Chat: React.FC<Props> = ({ stage }) => {
       console.log(messageUser);
       dispatch(addUserMessage(messageUser))
       // const response = await axios.post('/api/chat', { message: inputValue });
-
-      dispatch(addMessage(messageUser));
+      setLoadingMsg(true)
+      const response = await dispatch(addMessage(messageUser));
+      setLoadingMsg(false)
+      console.log("respuesta del dispatch", response);
 
       // const responseData = response
 
@@ -93,17 +111,19 @@ const Chat: React.FC<Props> = ({ stage }) => {
               <span>{ProjectStageInfo.assistant_id}<RxClipboardCopy className='ico-copy' /></span>
             </CopyToClipboard></div></div>
           {/* 
-        <div className='thread_assistant'>Assistant: <div className='thread_content'>{ProjectStageInfo.assistant_id}</div> <RxClipboardCopy className='ico-copy' /></div> */}
+          <div className='thread_assistant'>Assistant: <div className='thread_content'>{ProjectStageInfo.assistant_id}</div> <RxClipboardCopy className='ico-copy' /></div> */}
         </div>
         <div className="chat-messages">
           {stageMessages?.map((msg, index) => (
             <div key={index} className="message">
-              {
-                msg.message ? <div className={msg.sender == 'user' ? "msgUser" : "msgAssistant"}>
+              {!loadingMsg || index !== stageMessages.length - 1 ? (
+                <div className={msg.sender === 'user' ? "msgUser" : "msgAssistant"}>
                   <div className={msg.sender}></div>
                   <div>{msg.message}</div>
-                </div> : <img src={loader} alt="" className='loader' />
-              }
+                </div>
+              ) : (
+                <img src={loader} alt="" className='loader' />
+              )}
             </div>
           ))}
         </div>
@@ -112,7 +132,7 @@ const Chat: React.FC<Props> = ({ stage }) => {
           sendMessage(); // Llamar a la función para enviar el mensaje
         }}>
           <input
-            
+
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}

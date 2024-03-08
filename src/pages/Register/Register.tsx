@@ -56,7 +56,7 @@ const Register = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="register-container">
       <div className="content">
         <div className="form-container">
           <Link className="logoCapitan" to="/home">

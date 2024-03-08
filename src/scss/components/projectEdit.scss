@@ -9,43 +9,87 @@
   // border: 1px solid #ccc;
   border-radius: 5px;
 }
-
+.cards-stage{
+  width: 100%;
+  min-width: 250px;
+  font-family: var(--font-robotoFlex);
+  & h2{
+    text-align: center;
+    margin-bottom: 10px;
+    color: rgb(56, 55, 55);;
+  }
+}
+.section_tit{
+  display: flex;
+  margin-bottom: 5px;
+    color: rgb(74, 73, 73);
+    font-family: var(--font-robotoFlex); 
+    font-weight: 500;
+}
+.titleProject{
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  // justify-content: space-between;
+  align-items: center;
+}
 .add-stage {
   margin-top: 20px;
 }
-
 .add-stage input {
   margin-right: 10px;
 }
-
-.add-stage button {
-  padding: 8px 15px;
-  background-color: #007bff;
-  color: #fff;
+.div_btn{
+  margin-top: 10px;
+display: flex;
+align-items: start;
+justify-content: start;
+}
+.edit-project-button{
+  width: 90px;
+  height: 40px;
+  padding: 2px 2px 2px 2px;
   border: none;
   border-radius: 5px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 12px;
+  display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-evenly;
   cursor: pointer;
+  &:hover {
+    background-color: var(--yellow-color);
+    color: var(--primary-color);
+  }
 }
-.div_btn{
-display: flex;
-align-items: end;
-justify-content: end;
+.btn_ico{
+ height: 20px;
+ width: 20px;
 }
-
 .add-stage button:hover {
   background-color: #0056b3;
 }
-
+.name_p{
+  margin-left: 10px;
+  font-family: var(--font-robotoSerif);
+  font-size: 16px;
+  color: var(--primary-color);
+  font-weight: 800;
+}
 .delete_edit{
 display: flex;
-justify-content: flex-end;
+// justify-content: flex-end;
 height: 30px;
+justify-content: space-between;
+align-items: center;
 }
-
 .create-stage-button {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 5px 10px;
+  width: 90px;
+  height: 40px;
+  padding: 2px 2px 2px 2px;
   border: none;
   border-radius: 10px;
   background-color: var(--primary-color);
@@ -60,9 +104,16 @@ height: 30px;
 }
 .stage-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 5px;
-  margin-top: 20px 
+    min-height: 250px;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+.card_container{
+  height: 100%;
+display: flex;
+flex-direction: column;
+justify-content: space-around;
 }
 .MuiAccordionSummary-expandIconWrapper.css-yw020d-MuiAccordionSummary-expandIconWrapper{
   // margin: 0;
@@ -83,10 +134,8 @@ border-radius: 5px;
     color: var(--primary-color);
   }
 }
-
 .MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters.css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root{
   border-radius: 5px 5px 0px 0px;
-  
 }
 .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root{
 min-height: 30px;
@@ -98,7 +147,7 @@ min-height: 30px;
 }
 .stage-card {
   background-color: var(--yellow-color);
-  // padding: 20px;
+  padding: 20px;
   // border-radius: 8px;
   // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -108,12 +157,12 @@ min-height: 30px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   &:hover{
-    background-color: var(--yellow-color);
+    background-color: #f6bf3780;
+    // background-color: rgb(210, 208, 208);
   }
 }
 .stage-divider {
   border-top: 1px solid #ccc;
-  margin: 10px 0;
 }
 
 .edit-button{
@@ -135,13 +184,6 @@ min-height: 30px;
 .edit-delete{
   height: 30px;
 }
-
-.titleProject{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .swal2-icon.swal2-warning.swal2-icon-show{
   color: var(--yellow-color);
   border-color:var(--yellow-color);
@@ -155,12 +197,26 @@ color: var(--primary-color);
     color: #f9f9f9;
   }
 }
-.cards-stage{
-  width: 25%;
-  min-width: 250px;
+.stages-title{
+  color: var(--primary-color);
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.title_description{
+    display: flex;
+    align-items: center;
+    color: rgb(74, 73, 73);
+    font-family: var(--font-robotoFlex); 
+    font-weight: 500;
+    align-items: baseline;
 }
 .description{
+  margin-left: 10px;
   font-size: small;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 .assId{
   margin-top: 5px;

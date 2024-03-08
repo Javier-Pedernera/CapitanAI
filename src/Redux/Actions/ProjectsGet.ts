@@ -36,7 +36,7 @@ const getProjectsUser = (userId:string) => {
             const res = dispatch(userProjects(response.data))
 			return res
 		} catch (error:any) {
-			console.error('error en createProject', error);
+			console.error('error en getProjects User', error);
 		}
 	};
 };

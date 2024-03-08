@@ -17,7 +17,7 @@ const getStagesById = (stageId: string) => {
 			// console.log(response.data);
 			dispatch(selectStageById(response.data))
 		} catch (error: any) {
-			console.error('error en createProject', error);
+			console.error('error en getstageByID', error);
 		}
 	};
 };
@@ -31,17 +31,13 @@ const selectProyect_StageByIds = (projectId: string, stageId: string) => {
 			// console.log(response.data);
 			dispatch(selectProyect_Stage(response.data))
 		} catch (error: any) {
-			console.error('error en createProject', error);
+			console.error('error en proyect_stageBys', error);
 		}
 	};
 };
 
 // Crear proyecto
 const createStage = (dataP_S: any, data: any) => {
-	// console.log(dataP_S);
-	// console.log("data", data);
-
-
 	return async () => {
 		try {
 			console.log(data);
@@ -53,18 +49,18 @@ const createStage = (dataP_S: any, data: any) => {
 			const JoinStageProject: any = await axios.post(`${URL}/api/projects/${dataP_S.projectId}/stages`, dataProjectStage);
 			// console.log("JoinStageProject", JoinStageProject);
 
-			if (JoinStageProject.status == 200) {
-				const datathread = {
-					"timestamp": "2024-02-24T12:00:00",
-					"stage_id": response.data.id,
-					"project_id": dataP_S.projectId,
-					"assistant_thread_id": JoinStageProject.data.thread_id
-				}
-				const JoinThread = await axios.post(`${URL}/api/threads`, datathread);
-				// console.log("JoinThread", JoinThread);
-				return JoinThread
-			}
-
+			// if (JoinStageProject.status == 200) {
+			// 	const datathread = {
+			// 		"stage_id": response.data.id,
+			// 		"project_id": dataP_S.projectId,
+			// 		"assistant_thread_id": JoinStageProject.data.thread_id,
+			// 		"user_id": userId
+			// 	}
+			// 	// const JoinThread = await axios.post(`${URL}/api/threads`, datathread);
+			// 	// console.log("JoinThread", JoinThread);
+			// 	return JoinThread
+			// }
+			return JoinStageProject
 		} catch (error: any) {
 			console.error('error en createProject', error);
 		}
@@ -79,7 +75,7 @@ const getStagesbyProjectId = (projectId: string) => {
 			const res = dispatch(stageByProyect(response.data))
 			return res
 		} catch (error: any) {
-			console.error('error en createProject', error);
+			console.error('error en getStages by projectID', error);
 		}
 	};
 };

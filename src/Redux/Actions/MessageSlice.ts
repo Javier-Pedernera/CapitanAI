@@ -46,8 +46,21 @@ const Slice = createSlice({
             };
             
         },
+        createThread: (state, action) => {
+            return {
+                ...state,
+                threadSelected: action.payload
+            };
+        },
+        messagesOut: (state, action) => {
+            return {
+                ...state,
+                messages: action.payload
+            };
+            
+        },
     }
 });
 
-export const { getThread, messageUserAdded, messageAssistantAdded, getAllMessagesThread } = Slice.actions;
+export const { getThread, messageUserAdded, messageAssistantAdded, getAllMessagesThread, messagesOut, createThread } = Slice.actions;
 export default Slice.reducer;

@@ -12,7 +12,7 @@ const Landing = () => {
 
     return (
         <div className="landing">
-           <img src={logo} alt="" />
+           <img src={logo} className='logo-landing' alt="" />
             {/* <Link to="/home" className="landing-button">Ir al Inicio</Link> */}
             <button className="btn" onClick={() => handleInit()}>Iniciar</button>
         </div>

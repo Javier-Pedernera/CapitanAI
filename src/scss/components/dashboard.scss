@@ -114,7 +114,7 @@
     }
   }
   .btns_p{
-    max-width: 100px;
+    width: 30%;
   }
   .swal2-input{
     width: 80%;
@@ -181,4 +181,10 @@
   .swal2-icon.swal2-warning.swal2-icon-show{
     color: var(--yellow-color);
     border-color:var(--yellow-color);
+  }
+  .dashboard .dashboard-table th, .dashboard .dashboard-table td {
+    max-width: 300px;
+  }
+  .description_column{
+    width: 40%;
   }

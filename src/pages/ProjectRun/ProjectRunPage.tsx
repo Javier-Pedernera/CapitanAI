@@ -17,20 +17,6 @@ import { FaCircleArrowLeft, FaCircleArrowRight } from 'react-icons/fa6';
 
 const ProjectRun = () => {
 
-  const [userRole, setuserRole] = useState("Admin");
-
-  // const Toast = Swal.mixin({
-  //   toast: true,
-  //   position: "top-end",
-  //   showConfirmButton: false,
-  //   timer: 3000,
-  //   timerProgressBar: true,
-  //   didOpen: (toast) => {
-  //     toast.onmouseenter = Swal.stopTimer;
-  //     toast.onmouseleave = Swal.resumeTimer;
-  //   }
-  // });
-  // const navigate = useNavigate();
   // const userActive: User = useAppSelector((state: any) => state.user);
   const stagesProject: CreateStage[] = useAppSelector((state: any) => state.stages.stagesProyect);
   const actualProject: ProjectModel = useAppSelector((state: any) => state.projects.projectActual);

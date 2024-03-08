@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
             //     style: "route"
             // },
             {
-                path: "/userID",
+                path: "/userProfile",
                 name: userActive.userData && 'email' in userActive.userData ? userActive.userData.email : "User Email",
                 style: "userName"
             },

@@ -81,8 +81,22 @@ const getProjectActual = (projectID:string) => {
 		}
 	};
 };
- 
+ // agregar colaborador
+
+ const addCollaborator = (projectID:string, data:any) => {
+	const URL = import.meta.env.VITE_API_URL
+    return async () => {
+		try {
+            // console.log(data);
+			const response = await axios.post(`${URL}/api/projects/collaborators/${projectID}`,data);
+            console.log("agregando colaborador",response);
+			return response
+		} catch (error:any) {
+			console.error('error en createProject', error);
+		}
+	};
+};
 
 export {
-	createProject, getProjectsUser, deleteProject, updateProject, getProjectActual
+	createProject, getProjectsUser, deleteProject, updateProject, getProjectActual, addCollaborator
 }

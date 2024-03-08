@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import CreateStage from '../../components/Models/CreateStage';
 import { MdDeleteForever } from "react-icons/md";
 import { MdEditSquare } from "react-icons/md";
-import { getProjectActual, updateProject } from '../../Redux/Actions/ProjectsGet';
+import { addCollaborator, getProjectActual, updateProject } from '../../Redux/Actions/ProjectsGet';
 import ProjectModel from '../../components/Models/Project';
 import Project from '../../components/Models/Project';
 import User from '../../components/Models/User';;
@@ -43,17 +43,19 @@ const ProjectEdit = () => {
     }
   });
   // const navigate = useNavigate();
-  const userActive: User = useAppSelector((state: any) => state.user);
+  const userActive: any = useAppSelector((state: any) => state.user);
   const stagesProject: CreateStage[] = useAppSelector((state: any) => state.stages.stagesProyect);
   const actualProject: ProjectModel = useAppSelector((state: any) => state.projects.projectActual);
   // const stageSelected: any = useAppSelector((state: any) => state.stages.stageSelected);
   // const [selectStage, setselectStage] = useState<Stage | null>(null);
-
   const dispatch = useAppDispatch()
   const { projectId } = useParams();
-  console.log(stagesProject);
-  console.log(actualProject);
-  console.log("userActive", userActive);
+  const user = userActive.userData
+  // console.log(stagesProject);
+  console.log("Project en edit ", actualProject);
+  console.log("user", user);
+
+
 
   useEffect(() => {
     if (projectId) {
@@ -67,6 +69,44 @@ const ProjectEdit = () => {
     }
   }, [dispatch, projectId]);
 
+  const handleAddCollaborator = () => {
+    (async () => {
+      const { value: formValues } = await Swal.fire({
+        heightAuto: false,
+        title: `Add collaborator in ${actualProject.name}`,
+        html: `<input  placeholder ="user_id" id="swal-input1" class="swal2-input">`,
+        focusConfirm: false,
+        preConfirm: () => {
+          const user_id = document.getElementById("swal-input1") as HTMLInputElement;
+          if (user_id) {
+            return [user_id.value];
+          }
+          return null;
+        }
+      });
+      if (formValues) {
+        const collaborator: any = {
+          user_id: formValues[0] ? formValues[0] : null
+        }
+        const response = await dispatch(addCollaborator(projectId ? projectId : "", collaborator));
+        console.log("respuesta", response);
+        if (response?.status == 200) {
+          dispatch(getProjectActual(projectId ? projectId : ""))
+          Toast.fire({
+            title: `Collaborator ${formValues[0]} added successfully!`,
+            icon: 'success'
+          });
+        } else {
+          Swal.fire({
+            heightAuto: false,
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong!",
+          });
+        }
+      }
+    })()
+  };
   const handleCreateStage = () => {
     (async () => {
       const { value: formValues } = await Swal.fire({
@@ -110,7 +150,6 @@ const ProjectEdit = () => {
             icon: "error",
             title: "Oops...",
             text: "Something went wrong!",
-            // footer: '<a href="#">Try again...</a>'
           });
         }
       }
@@ -129,12 +168,9 @@ const ProjectEdit = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("dentro del delete", projectId, stageID);
-
+        // console.log("dentro del delete", projectId, stageID);
         dispatch(stageDeleted(projectId ? projectId : "", stageID ? stageID : ""))
-
           .then((result: any) => {
-            // console.log("result de delete", result)
             if (result == "Stage deleted") {
               dispatch(getStagesbyProjectId(projectId ? projectId : ""))
 
@@ -161,7 +197,6 @@ const ProjectEdit = () => {
 
   };
   const handleEditStage = (stageID: string, stageName: string, stageDescription: string) => {
-    // console.log(stageName, stageDescription);
     Swal.fire({
       heightAuto: false,
       title: 'Edit Stage',
@@ -188,7 +223,6 @@ const ProjectEdit = () => {
                 icon: 'success'
               });
             }
-            // let name = resultRes?.data.name
           })
           .catch((error) => {
             Swal.fire({
@@ -219,16 +253,12 @@ const ProjectEdit = () => {
           return null;
         }
       });
-      console.log(formValues);
       const data: ProjectUpdate = {
         name: formValues.length ? formValues[0] : "",
         description: formValues.length ? formValues[1] : ""
       }
       const response = await dispatch(updateProject(project.id, data));
-      // console.log("data al dispatch",data);
-      // console.log("respuesta",response);
       if (response?.status == 200) {
-        // dispatch(getProjectsUser(userActive.userData && 'id' in userActive.userData ? userActive.userData.id : "User  id"));
         Swal.fire({ heightAuto: false, title: `The ${formValues[0]} project was edited successfully` });
       } else {
         Swal.fire({
@@ -244,39 +274,56 @@ const ProjectEdit = () => {
 
   const handleBack = () => {
     navigate(`/dashboard`);
-};
+  };
 
 
   return (
-    <div className="project-container">
+    <div className="project_container_edit">
       <IoMdArrowRoundBack onClick={handleBack} className="backArrow" />
-      <div className='cards-stage'>
+      <div className='cards_edit'>
         <h2>Project configuration</h2>
-        <hr className='stage-divider' />
-        <div className='titleProject'>
+        <hr className='stage_divider_edit' />
+        <div className='titleProjectEdit'>
           {/* <RiHomeGearLine className='btn_ico'></RiHomeGearLine> */}
-          <div className='section_tit'>Name: <div className='name_p'>{actualProject.name}</div> </div>
-          <div className='section_tit'>Created: <div className='name_p'>{actualProject.date}</div> </div>
-          <button className='edit-project-button' onClick={() => handleEditProject(actualProject)}>Edit
+          <div className='section_tit_edit'>Name: <div className='name_p_e'>{actualProject.name}</div> </div>
+          <div className='section_tit_edit'>Created: <div className='name_p_e'>{actualProject.date}</div> </div>
+          <button className='edit_project_button' onClick={() => handleEditProject(actualProject)}>Edit
             {/* <RiHomeGearLine className='btn_ico' /> */}
-            <PiGearLight className='btn_ico' />
+            <PiGearLight className='btn_ico_edit' />
           </button>
         </div>
-        <div className='title_description' >
+        <div className='title_description_edit' >
           Description: <div className='description'>{actualProject.description}</div>
         </div>
-        <hr className='stage-divider' />
-        <div>
-          <div className='stages-title'>Project stages</div>
+        <hr className='stage_divider_edit' />
+        <div className="collaborators_container">
+          <h5>Collaborators:</h5>
+          <ul className='lista_colab'>
+            <button className='create_stage_button' onClick={handleAddCollaborator}>+</button>
+            {actualProject.collaborators.length ? actualProject.collaborators.map((collaborator, index) => (
+              <li key={index}>
+                {collaborator.public_id !== user.id ?
+                  <div className='colab_card'>
+                    <h6>userId:</h6> <div> {collaborator.public_id} </div>
+                    <h6>email:</h6> <div>{collaborator.username}</div>
+                  </div> : null
+                }
+              </li>
+            )) : <div className='colab_card_null'>Add collaborators here...</div>}
+          </ul>
         </div>
-        <hr className='stage-divider' />
+        <hr className='stage_divider_edit' />
+        <div>
+          <div className='stages-title_edit'>Project stages</div>
+        </div>
+        <hr className='stage_divider_edit' />
         {
           userRole == "Admin" ?
-            <div className='div_btn'><button className='create-stage-button' onClick={handleCreateStage}>+ Add stage</button> </div> : <div className='div_btn'></div>}
-        <div className="stage-container">
+            <div className='div_btn_edit'><button className='create_stage_button' onClick={handleCreateStage}>+ Add stage</button> </div> : <div className='div_btn_edit'></div>}
+        <div className="stage_container_edit">
           {/* {stageSelected?.id== stageDeleted.id? "stage-card": "stage-nonselect-card" } */}
           {stagesProject.map((stage, index) => (
-            <div key={index} className="stage-nonselect-card" >
+            <div key={index} className="stage_card_edit" >
               <div className='delete_edit'>
                 <h4 >{stage.name}</h4>
                 {
@@ -289,10 +336,10 @@ const ProjectEdit = () => {
                 }
 
               </div>
-              <hr className="stage-divider" />
-              <div className='card_container'>
+              <hr className="stage_divider_edit" />
+              <div className='card_container_edit'>
                 <div>
-                  <div className='section_tit'>Description:</div>
+                  <div className='section_tit_edit'>Description:</div>
                   <p>{stage.description}</p>
                 </div>
 

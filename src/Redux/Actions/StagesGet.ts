@@ -47,7 +47,8 @@ const createStage = (dataP_S: any, data: any) => {
 			// console.log(dataProjectStage);
 
 			const JoinStageProject: any = await axios.post(`${URL}/api/projects/${dataP_S.projectId}/stages`, dataProjectStage);
-			// console.log("JoinStageProject", JoinStageProject);
+
+			console.log("JoinStageProject", JoinStageProject);
 
 			// if (JoinStageProject.status == 200) {
 			// 	const datathread = {
@@ -62,7 +63,7 @@ const createStage = (dataP_S: any, data: any) => {
 			// }
 			return JoinStageProject
 		} catch (error: any) {
-			console.error('error en createProject', error);
+			console.error('error en createStage', error);
 		}
 	};
 };

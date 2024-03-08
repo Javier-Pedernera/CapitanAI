@@ -1,0 +1,29 @@
+.userPContainer{
+    height: 100%;
+    width: 100%;
+}
+.user-profile {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  
+    .profile-info {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+  
+      p {
+        margin-bottom: 10px;
+  
+        strong {
+          font-weight: bold;
+          margin-right: 5px;
+        }
+      }
+    }
+  }

@@ -1,6 +1,5 @@
 import "../../scss/components/dashboard.scss"
 import { Link, useNavigate } from 'react-router-dom';
-import Project from '../../components/Models/Project';
 import Swal from "sweetalert2";
 import { UserState } from "../../Redux/Actions/UserSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/Store/hooks";
@@ -9,20 +8,19 @@ import { useEffect, useState } from "react";
 import ok from "../../assets/images/check.png";
 import { GrConfigure, GrSchedulePlay } from "react-icons/gr";
 import 'balloon-css';
+import ProjectModel from "../../components/Models/Project";
 
 const Dashboard = () => {
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
     const userActive: UserState = useAppSelector((state: any) => state.user);
-    const ProjectsUser: Project[] = useAppSelector((state: any) => state.projects.projects);
+    const ProjectsUser: ProjectModel[] = useAppSelector((state: any) => state.projects.projects);
     const [userRole, setuserRole] = useState("Admin");
     console.log(userRole);
-
+    const user: any = userActive.userData
     console.log(ProjectsUser);
-
-    // console.log(userActive.userData && 'id' in userActive.userData ? userActive.userData.id : "User  id");
-
+    console.log(user);
 
     useEffect(() => {
         if (userActive && userActive.userData && 'id' in userActive.userData) {
@@ -48,7 +46,7 @@ const Dashboard = () => {
                     return null;
                 }
             });
-            console.log(formValues);
+            // console.log(formValues);
             const data: ProjectCreate = {
                 name: formValues[0] ? formValues[0] : "",
                 creator_id: userActive.userData && 'id' in userActive.userData ? userActive.userData.id : "",
@@ -85,8 +83,8 @@ const Dashboard = () => {
             if (result.isConfirmed) {
                 dispatch(deleteProject(projectId))
                     .then((result: any) => {
-                        console.log("result de delete", result)
-                        console.log(userActive.userData);
+                        // console.log("result de delete", result)
+                        // console.log(userActive.userData);
                         if (result == "Project deleted") {
                             dispatch(getProjectsUser(userActive.userData && 'id' in userActive.userData ? userActive.userData.id : "User  id"));
                             Swal.fire({
@@ -127,14 +125,14 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            
+
             <h2>Projects</h2>
             {userRole == "Admin" ? <button className="btn" onClick={handleCreateProject}>New project +</button> : <div></div>}
             <table className="dashboard-table">
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Description</th>
+                        <th className="description_column">Description</th>
                         {/* <th>Stage</th> */}
                         <th>Date</th>
                         <th>State</th>
@@ -142,9 +140,12 @@ const Dashboard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {ProjectsUser.length ? ProjectsUser.map((project: Project) => (
+                    {ProjectsUser.length ? ProjectsUser.map((project: ProjectModel) => (
                         <tr key={project.id}>
-                            <td><Link className="link" to={`/${project.id}`}>{project.name}</Link></td>
+                            <td>
+                                <div className="link" onClick={() => handleRunProject(project.id)}>{project.name}</div>
+
+                                <Link to={`/${project.id}`}></Link></td>
                             <td>
                                 {project.description}
                             </td>
@@ -159,16 +160,19 @@ const Dashboard = () => {
                             </td>
                             <td className="btns_p">
                                 <div className="btnEdithDel">
+
+
                                     <button className="btn" >See</button>
                                     <button className="btn" aria-label="RUN" data-balloon-pos="down" onClick={() => handleRunProject(project.id)}><GrSchedulePlay className="icono_btn" /></button>
-                                    {userRole == "Admin" ?
+                                    {/* {userRole == "Admin" ? */}
+                                    {project.collaborators[0].public_id == user.id ?
                                         <>
                                             <button className="btn" aria-label="SETUP" data-balloon-pos="down" onClick={() => handleEditProject(project.id)}><GrConfigure /></button>
                                             <button className="btn" onClick={() => handleDeleteProject(project.id)}>Delete</button>
                                         </> :
-                                        <div></div>
+                                        <div></div>}
 
-                                    }
+                                    {/* } */}
                                 </div>
                             </td>
                         </tr>

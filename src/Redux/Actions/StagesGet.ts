@@ -72,7 +72,7 @@ const getStagesbyProjectId = (projectId: string) => {
 	return async (dispatch: Dispatch) => {
 		try {
 			const response = await axios.get(`${URL}/api/projects/${projectId}/stages`);
-			console.log(response);
+			// console.log(response);
 			const res = dispatch(stageByProyect(response.data))
 			return res
 		} catch (error: any) {
@@ -80,20 +80,15 @@ const getStagesbyProjectId = (projectId: string) => {
 		}
 	};
 };
+
 const stageDeleted = (projectId: string, stageId: string) => {
-	
-	console.log(projectId, stageId);
-	
+	// console.log(projectId, stageId);
 	return async () => {
 		try {
 			// para eliminar la stage debe eliminar mensajes, hilos y relacion project, stage
 			const responseStage_thread = await axios.delete(`${URL}/api/threads/${projectId}/${stageId}`);
-
 			const responseStage_project = await axios.delete(`${URL}/api/projects/${projectId}/stages/${stageId}`);
-			// console.log(responseStage_project.status);
 			const responseStage = await axios.delete(`${URL}/api/stages/${stageId}`);
-			// console.log(responseStage);
-			// const res = dispatch(removeProject(response.data))
 			if (responseStage_thread.status == 200 &&responseStage_project.status == 200 && responseStage.status == 200) {
 				return "Stage deleted"
 			} else {

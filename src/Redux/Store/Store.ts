@@ -3,9 +3,11 @@ import user from "../Actions/UserSlice"
 import messages from '../Actions/MessageSlice';
 import projects from '../Actions/ProjectsSlice';
 import stages from '../Actions/StagesSlice';
+import assistants from '../Actions/AssistantsSlice';
 
 export const store = configureStore({
     reducer: {
+        assistants: assistants,
        user: user,
        messages: messages,
        projects:projects,

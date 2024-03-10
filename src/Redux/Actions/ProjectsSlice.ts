@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Project from "../../components/Models/Project";
+import Project from "../../Models/Project";
 
 export interface ProyectState {
     projects: Project[] | [];
@@ -7,7 +7,7 @@ export interface ProyectState {
 }
 
 const initialState = {
-    projects : [],
+    projects: [],
     projectActual: ''
 };
 
@@ -21,7 +21,7 @@ const Slice = createSlice({
         },
         projectCreate: (state, action) => {
             console.log(state, action);
-            
+
         },
         userProjects: (state, action) => {
             return {
@@ -29,13 +29,13 @@ const Slice = createSlice({
                 projects: action.payload
             };
         },
-        getProjectByID:(state, action) => {
+        getProjectByID: (state, action) => {
             return {
                 ...state,
                 projectActual: action.payload
             };
         },
-      
+
     }
 });
 

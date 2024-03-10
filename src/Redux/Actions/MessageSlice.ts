@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import MessageModel from "../../components/Models/Message";
+import MessageModel from "../../Models/Message";
 
 
 interface MessagesState {
     messages: MessageModel[];
-    messageActual: MessageModel[]; 
+    messageActual: MessageModel[];
     threadSelected: any;
 }
 
 
-const initialState:MessagesState = {
+const initialState: MessagesState = {
     messages: [],
     messageActual: [],
     threadSelected: {}
@@ -30,21 +30,21 @@ const Slice = createSlice({
                 ...state,
                 messages: [...state.messages, action.payload]
             };
-            
+
         },
         messageAssistantAdded: (state, action) => {
             return {
                 ...state,
                 messages: [...state.messages, action.payload]
             };
-            
+
         },
         getAllMessagesThread: (state, action) => {
             return {
                 ...state,
                 messages: action.payload
             };
-            
+
         },
         createThread: (state, action) => {
             return {
@@ -57,7 +57,7 @@ const Slice = createSlice({
                 ...state,
                 messages: action.payload
             };
-            
+
         },
         chatClean: (state, action) => {
             return {
@@ -65,11 +65,11 @@ const Slice = createSlice({
                 messages: [],
                 threadSelected: action.payload
             };
-            
+
         },
-        
+
     }
 });
 
-export const { getThread, messageUserAdded, messageAssistantAdded, getAllMessagesThread, messagesOut, createThread,chatClean } = Slice.actions;
+export const { getThread, messageUserAdded, messageAssistantAdded, getAllMessagesThread, messagesOut, createThread, chatClean } = Slice.actions;
 export default Slice.reducer;

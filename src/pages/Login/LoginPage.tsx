@@ -1,14 +1,12 @@
 import { FieldError, useForm } from "react-hook-form";
-// import { redirect } from 'react-router-dom';
-// import axios from "axios";
 import logo from "../../assets/images/Logosinfondo.png";
 import { Link, useNavigate } from "react-router-dom";
 import '../../scss/components/login.scss';
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
-import { useAppDispatch, useAppSelector } from "../../Redux/Store/hooks";
+import { useAppDispatch } from "../../Redux/Store/hooks";
 import { userLogIn } from "../../Redux/Actions/UserGet";
-import { UserState } from "../../Redux/Actions/UserSlice";
+// import { UserState } from "../../Redux/Actions/UserSlice";
 // import { useEffect } from "react";
 // import { useEffect } from "react";
 // let fondo = "/fondo2.gif";
@@ -19,7 +17,7 @@ const Login = () => {
     register,
     formState: { errors },
   } = useForm();
-
+  // const userActive: UserState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -58,9 +56,9 @@ const Login = () => {
     // axios
     //   .post(`${import.meta.env.VITE_API_URL}/users/login`, data)
     // console.log(data);
-    const username = data.email;
-    const password = data.password;
-    console.log("username en login", username, "password en login", password);
+    // const username = data.email;
+    // const password = data.password;
+    // console.log("username en login", username, "password en login", password);
     dispatch(userLogIn(data, "")).then((resp) => {
       // console.log(resp?.payload.token)
       Cookies.set("data", JSON.stringify(resp?.payload.token), { expires: 3 });
@@ -91,8 +89,8 @@ const Login = () => {
   //   return isAuthenticated ? redirect ("/home") : null;
   // };
 
-  const userActive: UserState = useAppSelector((state) => state.user);
-  console.log(userActive);
+  
+  // console.log(userActive);
   // useEffect(() => {
   //   if(userActive.accessToken?.length){
   //     location.href = "/home";

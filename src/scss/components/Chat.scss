@@ -30,6 +30,7 @@
     font-size: 15px;
     align-items: baseline;
     color: rgb(82, 82, 82);
+    align-items: center;
     // width: 50%;
   }
   .ico-copy {
@@ -37,11 +38,18 @@
     right: 0; 
     opacity: 0; 
     transition: opacity 0.3s; 
-    height: 10px;
+    height: 12px;
+    width: 12px;
     margin-left: 5px;
   }
-  .thread_assistant:hover .ico-copy {
+  .thread_content:hover .ico-copy {
     opacity: 1;
+    & button{
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin-right: 100px;
+    }
   }
   .selectAnyStage{
     display: flex;
@@ -61,9 +69,14 @@
     font-size: 10px;
     font-weight: 500;
     color: rgb(126, 124, 124);
+    & span{
+      display: flex;
+      align-items: center;
+    }
+
   }
   .chat-messages {
-    width: 90%;
+    width: 100%;
     flex: 1;
     overflow-y: auto;
     padding: 10px;
@@ -157,4 +170,62 @@
   .loader{
     height: 30px;
     width: auto;
+  }
+  .clean_ico{
+    height: 20px;
+    width: 20px;
+    color: #575757e9;
+    &:hover{
+      color: var(--yellow-color);
+      // color:  var(--primary-color);
+    }
+  }
+  .btn_clean{
+      margin-right: 10px;
+      --balloon-font-color: var(--primary-color);
+      --balloon-color: #e5ae22d3;
+      --balloon-move: 20px;
+      --balloon-font-size: 10px;
+  }
+  .Assisstantcopied{
+    display: flex;
+    align-items: center;
+    transition: color 0.5s;
+    &:hover{
+      color: rgba(52, 172, 52, 0.842);
+    }
+  }
+  .Threadcopied{
+    display: flex;
+    align-items: center;
+    transition: color 0.5s;
+    &:hover{
+      color: rgba(52, 172, 52, 0.842);
+  }
+  }
+  .ico-copied{
+    right: 0; 
+    opacity: 0; 
+    margin-left: 5px;
+    transition: opacity 0.3s; 
+    height: 13px;
+    width: 13px;
+    color: rgba(52, 172, 52, 0.842);
+  }
+  .thread_content:hover .ico-copied {
+    opacity: 1;
+    & button{
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin-right: 100px;
+    }
+  }
+
+  .code-fragment {
+    background-color: #222;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: monospace;
   }

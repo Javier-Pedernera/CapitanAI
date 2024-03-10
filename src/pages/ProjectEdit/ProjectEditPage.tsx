@@ -10,7 +10,7 @@ import { MdEditSquare } from "react-icons/md";
 import { addCollaborator, getProjectActual, updateProject } from '../../Redux/Actions/ProjectsGet';
 import ProjectModel from '../../components/Models/Project';
 import Project from '../../components/Models/Project';
-import User from '../../components/Models/User';;
+// import User from '../../components/Models/User';;
 import ProjectUpdate from '../../components/Models/ProjectUp';
 import { PiGearLight } from 'react-icons/pi';
 import { IoMdArrowRoundBack } from 'react-icons/io';
@@ -23,9 +23,6 @@ interface newProject_Stage {
   projectId: string;
   assistant_id: string;
 }
-
-
-
 const ProjectEdit = () => {
 
   // const [userRole, setuserRole] = useState("Admin");
@@ -52,10 +49,8 @@ const ProjectEdit = () => {
   const { projectId } = useParams();
   const user = userActive.userData
   // console.log(stagesProject);
-  console.log("Project en edit ", actualProject);
-  console.log("user", user);
-
-
+  // console.log("Project en edit ", actualProject);
+  // console.log("user", user);
 
   useEffect(() => {
     if (projectId) {
@@ -143,7 +138,6 @@ const ProjectEdit = () => {
             title: `Stage ${formValues[0]} created successfully!`,
             icon: 'success'
           });
-          // Swal.fire({ heightAuto: false, text: `The ${formValues[0]} project was created successfully` });
         } else {
           Swal.fire({
             heightAuto: false,

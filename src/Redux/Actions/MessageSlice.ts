@@ -59,8 +59,17 @@ const Slice = createSlice({
             };
             
         },
+        chatClean: (state, action) => {
+            return {
+                ...state,
+                messages: [],
+                threadSelected: action.payload
+            };
+            
+        },
+        
     }
 });
 
-export const { getThread, messageUserAdded, messageAssistantAdded, getAllMessagesThread, messagesOut, createThread } = Slice.actions;
+export const { getThread, messageUserAdded, messageAssistantAdded, getAllMessagesThread, messagesOut, createThread,chatClean } = Slice.actions;
 export default Slice.reducer;

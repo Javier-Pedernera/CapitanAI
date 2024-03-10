@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import User from "../../components/Models/User";
+import User from "../../Models/User";
 
 
 export interface UserState {
@@ -7,7 +7,7 @@ export interface UserState {
     accessToken: string | null;
 }
 
-const initialState:UserState = {
+const initialState: UserState = {
     userData: {},
     accessToken: null
 };
@@ -26,9 +26,9 @@ const Slice = createSlice({
         // signupUser: (state, action: PayloadAction<User>) => {
         //     state.userData = action.payload;
         // },
-        logOut: (state, action:PayloadAction<{}>) => {
+        logOut: (state, action: PayloadAction<{}>) => {
             state.userData = action.payload;
-            state.accessToken= null;
+            state.accessToken = null;
         },
 
     }

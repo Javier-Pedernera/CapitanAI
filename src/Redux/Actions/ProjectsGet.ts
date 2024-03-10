@@ -2,7 +2,7 @@
 import axios from "axios";
 import { getProjectByID, userProjects } from "./ProjectsSlice";
 import { Dispatch } from "@reduxjs/toolkit";
-import ProjectUpdate from "../../components/Models/ProjectUp";
+import ProjectUpdate from "../../Models/ProjectUp";
 // import projectCreate from "./ProjectsSlice"
 export default interface ProjectCreate {
 	name: string;
@@ -12,86 +12,86 @@ export default interface ProjectCreate {
 
 
 // Crear proyecto
-const createProject = (data:ProjectCreate) => {
+const createProject = (data: ProjectCreate) => {
 	const URL = import.meta.env.VITE_API_URL
-    return async () => {
+	return async () => {
 		try {
-            // console.log(data);
-			const response = await axios.post(`${URL}/api/projects`,data);
-            console.log(response);
-            // const res = dispatch(projectCreate())
+			// console.log(data);
+			const response = await axios.post(`${URL}/api/projects`, data);
+			console.log(response);
+			// const res = dispatch(projectCreate())
 			return response
-		} catch (error:any) {
+		} catch (error: any) {
 			console.error('error en createProject', error);
 		}
 	};
 };
 
-const getProjectsUser = (userId:string) => {
+const getProjectsUser = (userId: string) => {
 	const URL = import.meta.env.VITE_API_URL
-    return async (dispatch:Dispatch) => {
+	return async (dispatch: Dispatch) => {
 		try {
 			const response = await axios.get(`${URL}/api/projects/user/${userId}`);
-            // console.log(response);
-            const res = dispatch(userProjects(response.data))
+			// console.log(response);
+			const res = dispatch(userProjects(response.data))
 			return res
-		} catch (error:any) {
+		} catch (error: any) {
 			console.error('error en getProjects User', error);
 		}
 	};
 };
-const deleteProject = (projectId:string) => {
+const deleteProject = (projectId: string) => {
 	const URL = import.meta.env.VITE_API_URL
-    return async () => {
+	return async () => {
 		try {
 			const response = await axios.delete(`${URL}/api/projects/${projectId}`);
-            console.log(response);
-            // const res = dispatch(removeProject(response.data))
+			console.log(response);
+			// const res = dispatch(removeProject(response.data))
 			return "Project deleted"
-		} catch (error:any) {
+		} catch (error: any) {
 			console.error('error en deleteProject', error);
 		}
 	};
 };
-const updateProject = (projectId:string, data: ProjectUpdate) => {
+const updateProject = (projectId: string, data: ProjectUpdate) => {
 	const URL = import.meta.env.VITE_API_URL
-    return async () => {
+	return async () => {
 		try {
-			const responseUpdate = await axios.put(`${URL}/api/projects/${projectId}`,data);
-            console.log(responseUpdate);
-            // const response = await axios.get(`${URL}/api/projects/user/${userId}`);
-            // const res = dispatch(userProjects(response.data))
+			const responseUpdate = await axios.put(`${URL}/api/projects/${projectId}`, data);
+			console.log(responseUpdate);
+			// const response = await axios.get(`${URL}/api/projects/user/${userId}`);
+			// const res = dispatch(userProjects(response.data))
 			return { projectData: responseUpdate.data, status: 200 };
-		} catch (error:any) {
+		} catch (error: any) {
 			console.error('error en createProject', error);
 		}
 	};
 };
 
-const getProjectActual = (projectID:string) => {
+const getProjectActual = (projectID: string) => {
 	const URL = import.meta.env.VITE_API_URL
-    return async (dispatch:Dispatch) => {
+	return async (dispatch: Dispatch) => {
 		try {
 			const response = await axios.get(`${URL}/api/projects/${projectID}`);
-            console.log("response en action",response);
-            const res = dispatch(getProjectByID(response.data))
+			console.log("response en action", response);
+			const res = dispatch(getProjectByID(response.data))
 			return res
-		} catch (error:any) {
+		} catch (error: any) {
 			console.error('error en createProject', error);
 		}
 	};
 };
- // agregar colaborador
+// agregar colaborador
 
- const addCollaborator = (projectID:string, data:any) => {
+const addCollaborator = (projectID: string, data: any) => {
 	const URL = import.meta.env.VITE_API_URL
-    return async () => {
+	return async () => {
 		try {
-            // console.log(data);
-			const response = await axios.post(`${URL}/api/projects/collaborators/${projectID}`,data);
-            console.log("agregando colaborador",response);
+			// console.log(data);
+			const response = await axios.post(`${URL}/api/projects/collaborators/${projectID}`, data);
+			console.log("agregando colaborador", response);
 			return response
-		} catch (error:any) {
+		} catch (error: any) {
 			console.error('error en createProject', error);
 		}
 	};

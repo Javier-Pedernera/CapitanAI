@@ -4,16 +4,18 @@ import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '../../Redux/Store/hooks';
 import { createStage, editStage, getStagesbyProjectId, stageDeleted } from '../../Redux/Actions/StagesGet';
 import { useNavigate, useParams } from 'react-router-dom';
-import CreateStage from '../../components/Models/CreateStage';
+import CreateStage from '../../Models/CreateStage';
 import { MdDeleteForever } from "react-icons/md";
 import { MdEditSquare } from "react-icons/md";
 import { addCollaborator, getProjectActual, updateProject } from '../../Redux/Actions/ProjectsGet';
-import ProjectModel from '../../components/Models/Project';
-import Project from '../../components/Models/Project';
+import ProjectModel from '../../Models/Project';
+import Project from '../../Models/Project';
 // import User from '../../components/Models/User';;
-import ProjectUpdate from '../../components/Models/ProjectUp';
+import ProjectUpdate from '../../Models/ProjectUp';
 import { PiGearLight } from 'react-icons/pi';
 import { IoMdArrowRoundBack } from 'react-icons/io';
+import { getAssistants } from '../../Redux/Actions/AssistantsGet';
+import AssistantModel from '../../Models/AssistantModel';
 
 interface newStage {
   name: string;
@@ -24,7 +26,8 @@ interface newProject_Stage {
   assistant_id: string;
 }
 const ProjectEdit = () => {
-
+  const dispatch = useAppDispatch()
+  const { projectId } = useParams();
   // const [userRole, setuserRole] = useState("Admin");
   const navigate = useNavigate();
   const userRole = "Admin"
@@ -43,14 +46,23 @@ const ProjectEdit = () => {
   const userActive: any = useAppSelector((state: any) => state.user);
   const stagesProject: CreateStage[] = useAppSelector((state: any) => state.stages.stagesProyect);
   const actualProject: ProjectModel = useAppSelector((state: any) => state.projects.projectActual);
+  const actualAssistants: AssistantModel[] = useAppSelector((state: any) => state.assistants.assistantsOpenai);
   // const stageSelected: any = useAppSelector((state: any) => state.stages.stageSelected);
   // const [selectStage, setselectStage] = useState<Stage | null>(null);
-  const dispatch = useAppDispatch()
-  const { projectId } = useParams();
+
   const user = userActive.userData
   // console.log(stagesProject);
   // console.log("Project en edit ", actualProject);
   // console.log("user", user);
+  // console.log("asistentes actuales en projectedit", actualAssistants);
+  // console.log("asistentes .LENGTH actuales en projectedit", actualAssistants.length);
+  useEffect(() => {
+    if (!actualAssistants.length) {
+      dispatch(getAssistants())
+    } else {
+      console.log("asistentes cargados");
+    }
+  }, []);
 
   useEffect(() => {
     if (projectId) {
@@ -106,15 +118,51 @@ const ProjectEdit = () => {
     (async () => {
       const { value: formValues } = await Swal.fire({
         heightAuto: false,
-        title: `Create stage in ${actualProject.name}`,
-        html: `<input  placeholder ="Stage's name" id="swal-input1" class="swal2-input"><input  placeholder ="AssistantId" id="swal-input2" class="swal2-input"><textarea placeholder ="Stage description..." id="swal-text" class="swal2-textarea"></textarea>`,
-        focusConfirm: false,
+      title: `Create stage in ${actualProject.name}`,
+      html: `
+        <input placeholder="Stage's name" id="swal-input1" class="swal2-input">
+        <textarea placeholder="Stage description..." id="swal-text" class="swal2-textarea"></textarea>
+        <select id="swal-select" class="swal2-select">
+        <option value="" disabled selected>Select Assistant</option>
+          ${actualAssistants.map(option => `<option value="${option.id}">${option.name}</option>`).join('')}
+        </select>
+        <div id="model-info"></div>
+        <div id="created-at-info"></div>
+        <div id="instructions-info"></div>
+      `,
+      focusConfirm: false,
+      customClass: {
+        popup: 'custom-popup-class'
+      },
+      didOpen: () => {
+        const select = document.getElementById("swal-select") as HTMLSelectElement;
+        const modelInfo = document.getElementById("model-info");
+        const createdAtInfo = document.getElementById("created-at-info");
+        const instructionsInfo = document.getElementById("instructions-info");
+        select.addEventListener("change", () => {
+          const selectedAssistantId = select.value;
+          const selectedAssistant = actualAssistants.find(assistant => assistant.id === selectedAssistantId);
+          if (selectedAssistant) {
+            if (modelInfo) {
+              modelInfo.innerHTML = ` <div id="info_title">Model:</div> ${selectedAssistant.model}`;
+            }
+            if (createdAtInfo) {
+              const createdAt = new Date(parseInt(selectedAssistant.created_at) * 1000);
+              const formattedDate = createdAt.toLocaleDateString('en-US');
+              createdAtInfo.innerHTML = `<div id="info_title">Created At:</div> ${formattedDate}`;
+            }
+            if (instructionsInfo) {
+              instructionsInfo.innerHTML = `<div id="info_title">Instructions:</div> <div id="instrucc_content">${selectedAssistant.instructions}</div>`;
+            }
+          }
+        });
+      },
         preConfirm: () => {
           const name = document.getElementById("swal-input1") as HTMLInputElement;
-          const assistantId = document.getElementById("swal-input2") as HTMLInputElement;
+          const assistantId = (document.getElementById("swal-select") as HTMLSelectElement)?.value;
           const description = document.getElementById("swal-text") as HTMLInputElement;
           if (name && description && assistantId) {
-            return [name.value, description.value, assistantId.value];
+            return [name.value, description.value, assistantId];
           }
           return null;
         }
@@ -128,7 +176,6 @@ const ProjectEdit = () => {
           projectId: projectId ? projectId : "",
           assistant_id: formValues[2] ? formValues[2] : ""
         }
-
         const response = await dispatch(createStage(dataP_S, dataStage));
         // console.log("data al dispatch",data);
         // console.log("respuesta",response);
@@ -294,9 +341,9 @@ const ProjectEdit = () => {
           <h5>Collaborators:</h5>
           <ul className='lista_colab'>
             <button className='create_stage_button' onClick={handleAddCollaborator}>+</button>
-            {actualProject.collaborators.length ? actualProject.collaborators.map((collaborator, index) => (
+            {actualProject?.collaborators?.length > 1 ? actualProject.collaborators.map((collaborator, index) => (
               <li key={index}>
-                {collaborator.public_id !== user.id ?
+                { collaborator?.public_id !== user.id ?
                   <div className='colab_card'>
                     <h6>userId:</h6> <div> {collaborator.public_id} </div>
                     <h6>email:</h6> <div>{collaborator.username}</div>

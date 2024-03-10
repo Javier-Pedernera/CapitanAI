@@ -3,12 +3,12 @@ import '../../scss/components/Chat.scss';
 import { useAppDispatch, useAppSelector } from '../../Redux/Store/hooks';
 import { addMessage, addUserMessage, cleanChat, deleteThread, getAllMessages } from '../../Redux/Actions/MessageGet';
 // import { useParams } from 'react-router-dom';
-import Thread from '../Models/Thread';
-import Project_StageModel from '../Models/Project_Stage';
+import Thread from '../../Models/Thread';
+import Project_StageModel from '../../Models/Project_Stage';
 import { RxClipboardCopy } from "react-icons/rx";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import MessageModel from '../Models/Message';
-import SendMessageModel from '../Models/SendMessageModel';
+import MessageModel from '../../Models/Message';
+import SendMessageModel from '../../Models/SendMessageModel';
 import loader from '../../assets/images/loading.gif'
 // import { UserState } from '../../Redux/Actions/UserSlice';
 import { GiBroom } from 'react-icons/gi';
@@ -18,32 +18,32 @@ import Swal from 'sweetalert2';
 
 const Chat = () => {
 
-//   const ejemploCODE = {info:
-//    ` Empecemos por el modelo.
-// <CODE>Archivo: project_stage.py (ubicado en la carpeta /models)
-// from app import db
-// class ProjectStage(db.Model):
-//     __tablename__ = 'project_stages'
-//     project_id = db.Column(db.Integer, db.ForeignKey('projects.project_id'), primary_key=True)
-//     stage_id = db.Column(db.Integer, db.ForeignKey('stages.stage_id'), primary_key=True)
-//     assistant_id = db.Column(db.String(50))
-//     stage_description = db.Column(db.Text)
-//     def serialize(self):
-//         return {
-//             "project_id": self.project_id,
-//             "stage_id": self.stage_id,
-//             "assistant_id": self.assistant_id,
-//             "stage_description": self.stage_description
-//         }
-//     def __init__(self, project_id, stage_id, assistant_id=None, stage_description=None):
-//         self.project_id = project_id
-//         self.stage_id = stage_id
-//         self.assistant_id = assistant_id
-//         self.stage_description = stage_description
-//     def __repr__(self):
-//         return f"<ProjectStage {self.project_id}-{self.stage_id}: {self.assistant_id}>"
-// </CODE>`
-//   }
+  //   const ejemploCODE = {info:
+  //    ` Empecemos por el modelo.
+  // <CODE>Archivo: project_stage.py (ubicado en la carpeta /models)
+  // from app import db
+  // class ProjectStage(db.Model):
+  //     __tablename__ = 'project_stages'
+  //     project_id = db.Column(db.Integer, db.ForeignKey('projects.project_id'), primary_key=True)
+  //     stage_id = db.Column(db.Integer, db.ForeignKey('stages.stage_id'), primary_key=True)
+  //     assistant_id = db.Column(db.String(50))
+  //     stage_description = db.Column(db.Text)
+  //     def serialize(self):
+  //         return {
+  //             "project_id": self.project_id,
+  //             "stage_id": self.stage_id,
+  //             "assistant_id": self.assistant_id,
+  //             "stage_description": self.stage_description
+  //         }
+  //     def __init__(self, project_id, stage_id, assistant_id=None, stage_description=None):
+  //         self.project_id = project_id
+  //         self.stage_id = stage_id
+  //         self.assistant_id = assistant_id
+  //         self.stage_description = stage_description
+  //     def __repr__(self):
+  //         return f"<ProjectStage {self.project_id}-{self.stage_id}: {self.assistant_id}>"
+  // </CODE>`
+  //   }
 
   const threadSelected: Thread = useAppSelector((state: any) => state.messages.threadSelected);
   const ProjectStageInfo: Project_StageModel = useAppSelector((state: any) => state.stages.projectStageInfo);
@@ -140,7 +140,7 @@ const Chat = () => {
                 setThreadCopy(true);
                 setAssistantCopy(false)
               }}>
-              {assistantCopy ? <span className='Assisstantcopied'>{threadSelected.assistant_thread_id}<LiaClipboardCheckSolid className='ico-copied' /></span> : <span>{threadSelected.assistant_thread_id}<RxClipboardCopy className='ico-copy' /></span> }
+              {assistantCopy ? <span className='Assisstantcopied'>{threadSelected.assistant_thread_id}<LiaClipboardCheckSolid className='ico-copied' /></span> : <span>{threadSelected.assistant_thread_id}<RxClipboardCopy className='ico-copy' /></span>}
             </CopyToClipboard></div></div>
 
           <div className='thread_assistant'>Assistant: <div className='thread_content'>
@@ -149,7 +149,7 @@ const Chat = () => {
                 setAssistantCopy(true);
                 setThreadCopy(false)
               }}>
-              {threadCopy ?  <span className='Threadcopied'>{ProjectStageInfo.assistant_id}<LiaClipboardCheckSolid className='ico-copied'></LiaClipboardCheckSolid></span> : <span>{ProjectStageInfo.assistant_id}<RxClipboardCopy className='ico-copy' /></span> }
+              {threadCopy ? <span className='Threadcopied'>{ProjectStageInfo.assistant_id}<LiaClipboardCheckSolid className='ico-copied'></LiaClipboardCheckSolid></span> : <span>{ProjectStageInfo.assistant_id}<RxClipboardCopy className='ico-copy' /></span>}
               {/* <span>{ProjectStageInfo.assistant_id}<RxClipboardCopy className='ico-copy' /></span> */}
             </CopyToClipboard></div></div>
           {/* 

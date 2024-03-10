@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import ok from "../../assets/images/check.png";
 import { GrConfigure, GrSchedulePlay } from "react-icons/gr";
 import 'balloon-css';
-import ProjectModel from "../../components/Models/Project";
+import ProjectModel from "../../Models/Project";
 
 const Dashboard = () => {
 
@@ -23,8 +23,8 @@ const Dashboard = () => {
     const userRole = "Admin"
 
     const user: any = userActive.userData
-    console.log(ProjectsUser);
-    console.log(user);
+    // console.log(ProjectsUser);
+    // console.log(user);
 
     useEffect(() => {
         if (userActive && userActive.userData && 'id' in userActive.userData) {

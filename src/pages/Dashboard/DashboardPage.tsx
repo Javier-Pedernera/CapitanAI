@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { UserState } from "../../Redux/Actions/UserSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/Store/hooks";
 import ProjectCreate, { createProject, deleteProject, getProjectsUser } from "../../Redux/Actions/ProjectsGet";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ok from "../../assets/images/check.png";
 import { GrConfigure, GrSchedulePlay } from "react-icons/gr";
 import 'balloon-css';
@@ -16,8 +16,12 @@ const Dashboard = () => {
     const dispatch = useAppDispatch()
     const userActive: UserState = useAppSelector((state: any) => state.user);
     const ProjectsUser: ProjectModel[] = useAppSelector((state: any) => state.projects.projects);
-    const [userRole, setuserRole] = useState("Admin");
-    console.log(userRole);
+
+    //Para cuando se asignen roles de usuario
+    // const [userRole, setuserRole] = useState("Admin");
+    // console.log(userRole);
+    const userRole = "Admin"
+
     const user: any = userActive.userData
     console.log(ProjectsUser);
     console.log(user);

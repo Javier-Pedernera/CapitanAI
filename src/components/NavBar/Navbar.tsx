@@ -13,8 +13,8 @@ import { logOutUser, userLogIn } from '../../Redux/Actions/UserGet';
 const Navbar: React.FC = () => {
     const userActive: UserState = useAppSelector((state: any) => state.user);
     // console.log(userActive.accessToken);
-    
-const dispatch= useAppDispatch()
+
+    const dispatch = useAppDispatch()
     useEffect(() => {
         const token = Cookies.get("data");
         if (token && !userActive.accessToken) {
@@ -23,20 +23,20 @@ const dispatch= useAppDispatch()
     }, [dispatch]);
 
     let routes = []
-    if(userActive.accessToken?.length ){
-        routes =[
+    if (userActive.accessToken?.length) {
+        routes = [
+            // {
+            //     path: "/home",
+            //     name: "Home",
+            //     style: "route"
+            // },
+            // {
+            //     path: "/dashboard",
+            //     name: "Projects",
+            //     style: "route"
+            // },
             {
-                path: "/home",
-                name: "Home",
-                style: "route"
-            },
-            {
-                path: "/dashboard",
-                name: "Projects",
-                style: "route"
-            },
-            {
-                path: "/userID",
+                path: "/userProfile",
                 name: userActive.userData && 'email' in userActive.userData ? userActive.userData.email : "User Email",
                 style: "userName"
             },
@@ -46,52 +46,52 @@ const dispatch= useAppDispatch()
             //     style: "route"
             // },
         ]
-    }else{
-       routes =[
-        {
-            path: "/home",
-            name: "Home",
-            style: "route"
-        },
-        {
-            path: "/login",
-            name: "LogIn",
-            style: "route"
-        },
-        {
-            path: "/register",
-            name: "SignUp",
-            style: "route"
-        },
-    ]  
+    } else {
+        routes = [
+            {
+                path: "/home",
+                name: "Home",
+                style: "route"
+            },
+            {
+                path: "/login",
+                name: "LogIn",
+                style: "route"
+            },
+            {
+                path: "/register",
+                name: "SignUp",
+                style: "route"
+            },
+        ]
     }
-    const logOut = () =>{
+    const logOut = () => {
         dispatch(logOutUser())
     }
-  return (
-    <nav className="navbar">
-        <div className='divLogo'>
-            <Link to="/home">
-                <img src={logo} alt="" />
-            </Link>
-        </div>
-      <ul className="navbar-list">
-        {routes.map((route, index)=>(
-        <li key={index}>
-            <Link className={route.style} to={route.path}>
-                {route.name}
-            </Link>
-          
-        </li>
-        ))}
-        <li>
-          {userActive.accessToken?.length?
-         <div className='divUser'> <div className='logOut' title='logout' onClick={logOut}></div>
-          <img src={user} title='Edit' className='imageUser' alt="userImg" /></div>: <div></div> }  
-        </li>
-      </ul>
-    </nav>
-  );
+    return (
+        <nav className="navbar">
+            <div className='divLogo'>
+                <Link to="/home">
+                    <img src={logo} alt="" />
+                </Link>
+            </div>
+            <ul className="navbar-list">
+                {routes.map((route, index) => (
+                    <li key={index}>
+                        <Link className={route.style} to={route.path}>
+                            {route.name}
+                        </Link>
+
+                    </li>
+                ))}
+                <li>
+                    {userActive.accessToken?.length ?
+                        <div className='divUser'> <div className='logOut' title='logout' onClick={logOut}></div>
+                            <img src={user} title='Edit' className='imageUser' alt="userImg" /></div> : <div></div>}
+                </li>
+            </ul>
+        </nav>
+    );
 }
 
 export default Navbar;

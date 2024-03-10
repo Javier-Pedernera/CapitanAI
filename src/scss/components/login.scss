@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     background-color: var(--primary-color);
+    justify-content: space-around;
   }
   
  
@@ -19,11 +20,13 @@
   
   .form-container {
     width: 100%;
-    margin-top: 100px;
-    margin-bottom: 100px;
     display: flex;
     flex-direction: column;
-    
+    align-items: center;
+    height: 100%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+
   }
   .logoCapitan{
     width: 100%;
@@ -33,6 +36,7 @@
   .capitan{
     width: 50%;
     min-width: 300px;
+    margin-bottom: 50px;
   }
   .logo {
     width: 80%;
@@ -42,9 +46,6 @@
     align-items: center;
     
   }
-  
- 
-  
   .google-button {
     width: 250px;
     height: 50px;
@@ -59,7 +60,6 @@
     color: #34495e;
     
   }
-  
   .google-button:hover {
     // background-color: var(--bg-color);
     border-color: var(--bg-color);
@@ -151,7 +151,7 @@ width: 100%;
     margin-bottom: 10px;
     text-align: center;
     text-decoration: none;
-    height: 40px;
+    height: auto;
   }
   
   .create-account-button:hover {

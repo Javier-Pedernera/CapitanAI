@@ -8,8 +8,8 @@
     flex-direction: column;
     justify-content: center;
     button {
-        width: 200px;
-        min-width: 200px;
+        width: 150px;
+        min-width: 150px;
         padding: 10px;
         font-size: 13px;
         // background-color: #007bff;
@@ -38,5 +38,7 @@
         color: #666;
     }
 }
-
+.logo-landing{
+    max-width: 250px;
+}
   

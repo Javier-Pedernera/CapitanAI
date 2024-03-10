@@ -43,11 +43,22 @@
   
   .section h2 {
     font-size: 24px;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
   }
   
   .section p {
     font-size: 16px;
     line-height: 1.5;
   }
-  
+  .form_contact{
+    width: 50%;
+    height: auto;
+    // margin-top: 30px;
+  }
+  .sectionAbout{
+    max-height: 300px;
+  }
+  .about-image{
+    max-height: 80px;
+    width: auto;
+  }

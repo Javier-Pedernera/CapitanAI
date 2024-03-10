@@ -82,9 +82,19 @@ export const routes: RouteProps[] = [
 
             },
             {
-                path: "/:projectId",
-                element: lazy(async () => await import("../pages/Project/ProjectPage")),
-                name: "Proyect"
+                path: "/:projectId/run",
+                element: lazy(async () => await import("../pages/ProjectRun/ProjectRunPage")),
+                name: "ProjectRunPage"
+            },
+            {
+                path: "/:projectId/configure",
+                element: lazy(async () => await import("../pages/ProjectEdit/ProjectEditPage")),
+                name: "ProjectEditPage"
+            },
+            {
+                path: "/userProfile",
+                element: lazy(async () => await import("../pages/UserProfile/UserProfile")),
+                name: "UserProfile"
             }
         ]
     },

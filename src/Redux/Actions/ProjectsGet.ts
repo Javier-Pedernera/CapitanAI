@@ -16,8 +16,7 @@ const createProject = (data:ProjectCreate) => {
 	const URL = import.meta.env.VITE_API_URL
     return async () => {
 		try {
-            console.log(data);
-            
+            // console.log(data);
 			const response = await axios.post(`${URL}/api/projects`,data);
             console.log(response);
             // const res = dispatch(projectCreate())
@@ -37,7 +36,7 @@ const getProjectsUser = (userId:string) => {
             const res = dispatch(userProjects(response.data))
 			return res
 		} catch (error:any) {
-			console.error('error en createProject', error);
+			console.error('error en getProjects User', error);
 		}
 	};
 };
@@ -50,7 +49,7 @@ const deleteProject = (projectId:string) => {
             // const res = dispatch(removeProject(response.data))
 			return "Project deleted"
 		} catch (error:any) {
-			console.error('error en createProject', error);
+			console.error('error en deleteProject', error);
 		}
 	};
 };
@@ -82,8 +81,22 @@ const getProjectActual = (projectID:string) => {
 		}
 	};
 };
- 
+ // agregar colaborador
+
+ const addCollaborator = (projectID:string, data:any) => {
+	const URL = import.meta.env.VITE_API_URL
+    return async () => {
+		try {
+            // console.log(data);
+			const response = await axios.post(`${URL}/api/projects/collaborators/${projectID}`,data);
+            console.log("agregando colaborador",response);
+			return response
+		} catch (error:any) {
+			console.error('error en createProject', error);
+		}
+	};
+};
 
 export {
-	createProject, getProjectsUser, deleteProject, updateProject, getProjectActual
+	createProject, getProjectsUser, deleteProject, updateProject, getProjectActual, addCollaborator
 }

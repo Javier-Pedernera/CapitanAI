@@ -1,32 +1,75 @@
-// import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import MessageModel from "../../components/Models/Message";
 
-// const initialState = {
-//     messages: [],
-//     messageActual: []
-// };
 
-// const Slice = createSlice({
-//     name: 'messages',
-//     initialState,
-//     reducers: {
-//         compare: (state, action) => {
-//             if (state.messages.length < action.payload.length)
-//                 state.messages = action.payload;
-//         },
-//         messageAdded: () => {
-//             // state.projects.push(action.payload);
-//         },
-//         messageAI: () => {
-//             // state.projects.push(action.payload);
-//         },
-//         selectVoice: (state, action) => {
-//             state.messages = action.payload;
-//         },
-//         getOut: (state) => {
-//             state.messages = [];
-//         },
-//     }
-// });
+interface MessagesState {
+    messages: MessageModel[];
+    messageActual: MessageModel[]; 
+    threadSelected: any;
+}
 
-// export const { compare, messageAI, selectVoice, messageAdded, getOut } = Slice.actions;
-// export default Slice.reducer;
+
+const initialState:MessagesState = {
+    messages: [],
+    messageActual: [],
+    threadSelected: {}
+};
+
+const Slice = createSlice({
+    name: 'messages',
+    initialState,
+    reducers: {
+        getThread: (state, action) => {
+            return {
+                ...state,
+                threadSelected: action.payload
+            };
+        },
+        messageUserAdded: (state, action) => {
+            return {
+                ...state,
+                messages: [...state.messages, action.payload]
+            };
+            
+        },
+        messageAssistantAdded: (state, action) => {
+            return {
+                ...state,
+                messages: [...state.messages, action.payload]
+            };
+            
+        },
+        getAllMessagesThread: (state, action) => {
+            return {
+                ...state,
+                messages: action.payload
+            };
+            
+        },
+        createThread: (state, action) => {
+            return {
+                ...state,
+                threadSelected: action.payload
+            };
+        },
+        messagesOut: (state, action) => {
+            return {
+                ...state,
+                messages: action.payload
+            };
+            
+        },
+        chatClean: (state, action) => {
+            return {
+                ...state,
+                messages: [],
+                threadSelected: action.payload
+            };
+            
+        },
+        
+    }
+});
+
+export const { getThread, messageUserAdded, messageAssistantAdded, getAllMessagesThread, messagesOut, createThread,chatClean } = Slice.actions;
+export default Slice.reducer;

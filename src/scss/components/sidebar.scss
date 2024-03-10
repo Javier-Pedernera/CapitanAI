@@ -1,0 +1,109 @@
+.sidebar-list{
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+.sidebar {
+  display: flex;
+    width: 60px;
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.3s;
+    overflow-x: hidden;
+    flex-direction: column;
+    justify-content: space-between;
+  
+    &.open {
+      width: 200px;
+      display: flex;
+    }
+  
+    .sidebar-icon {
+        margin-left: 10px;
+      padding: 20px 0;
+      text-align: center;
+      color: var(--yellow-color);
+      cursor: pointer;
+  
+      &:hover .sidebar-text {
+        display: flex;
+        color: #fcc546;
+      }
+    }
+  
+    .sidebar-text {
+      width: 150px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      display: none;
+      margin-left: 10px;
+      color: var(--yellow-color);
+      opacity: 0;
+      &.open {
+        display: flex;
+        transition: opacity 0.5s ease;
+        opacity: 1;
+        
+      }
+    }
+  }
+
+
+  .linkSidebar{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+  }  
+  .logoCapitanIcono{
+    width: 30px;
+    height: 30px;
+    background-image: url("../../assets/images/solologo.png");
+    background-size: cover;
+  }
+  .projecticono{
+    width: 30px;
+    height: 30px;
+    // margin-left: 30px;
+    // color: var(--yellow-color);
+  }
+
+  .iconos{
+    margin-left: 5px;
+    color: var(--yellow-color);
+    width: 18px;
+    height: 18px;
+  }
+
+  .politicas{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 10px;
+    display: none;
+    // margin-left: 10px;
+    color: var(--yellow-color);
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    width: 150px; // Inicialmente con altura cero para ocultar el contenido
+    opacity: 0;
+    text-align: center; 
+   
+
+    &.open {
+      // width: 200px;
+      display: flex;
+      // Inicialmente transparente
+        
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+  }
+  .pyc{
+        list-style-type: none;
+        padding: 0;
+        margin-left: 5px;
+        color: aliceblue;
+        text-align: center;
+    }

@@ -6,6 +6,8 @@ import axios from "axios";
 import User from "../../components/Models/User";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import Cookies from 'js-cookie';
+import { getProjectByID, userProjects } from "./ProjectsSlice";
+import { messagesOut } from "./MessageSlice";
 
 interface CustomJwtPayload extends JwtPayload {
 	public_id: string;
@@ -70,7 +72,10 @@ const logOutUser= () => {
 			  } else {
 				console.log("La cookie 'userData' no existe.");
 			  }
+			  	dispatch(userProjects({}));
+				dispatch(getProjectByID({}));
 				dispatch(logOut({}));
+				dispatch(messagesOut({}));
 			
 		} catch (error) {
 			console.error(error);

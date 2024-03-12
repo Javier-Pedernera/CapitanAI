@@ -144,45 +144,46 @@ const Dashboard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {ProjectsUser.length ? ProjectsUser.map((project: ProjectModel) => (
-                        <tr key={project.id}>
-                            <td>
-                                <div className="link" onClick={() => handleRunProject(project.id)}>{project.name}</div>
-
-                                <Link to={`/${project.id}`}></Link></td>
-                            <td>
-                                {project.description}
-                            </td>
-                            {/* <td> */}
-                            {/* {project.stage} */}
-                            {/* </td> */}
-                            <td>{project.date}</td>
-                            <td>
-                                <img src={ok} alt="ok" className="ok" />
-                                {/* finish */}
-                                {/* {project.state} */}
-                            </td>
-                            <td className="btns_p">
-                                <div className="btnEdithDel">
-
-
-                                    <button className="btn" >See</button>
-                                    <button className="btn" aria-label="RUN" data-balloon-pos="down" onClick={() => handleRunProject(project.id)}><GrSchedulePlay className="icono_btn" /></button>
-                                    {/* {userRole == "Admin" ? */}
-                                    {project.collaborators[0].public_id == user.id ?
-                                        <>
-                                            <button className="btn" aria-label="SETUP" data-balloon-pos="down" onClick={() => handleEditProject(project.id)}><GrConfigure /></button>
-                                            <button className="btn" onClick={() => handleDeleteProject(project.id)}>Delete</button>
-                                        </> :
-                                        <div></div>}
-
-                                    {/* } */}
-                                </div>
-                            </td>
-                        </tr>
-                    )) : <div className="sinProyecto">
-                        You don't have any projects created yet </div>}
-                </tbody>
+  {ProjectsUser.length ? (
+    ProjectsUser.map((project: ProjectModel) => (
+      <tr key={project.id}>
+        <td>
+          <div className="link" onClick={() => handleRunProject(project.id)}>{project.name}</div>
+          <Link to={`/${project.id}`}></Link>
+        </td>
+        <td>
+          {project.description}
+        </td>
+        <td>{project.date}</td>
+        <td>
+          <img src={ok} alt="ok" className="ok" />
+        </td>
+        <td className="btns_p">
+          <div className="btnEdithDel">
+            <button className="btn" >See</button>
+            <button className="btn" aria-label="RUN" data-balloon-pos="down" onClick={() => handleRunProject(project.id)}>
+              <GrSchedulePlay className="icono_btn" />
+            </button>
+            {project.collaborators[0].public_id == user.id ?
+              <>
+                <button className="btn" aria-label="SETUP" data-balloon-pos="down" onClick={() => handleEditProject(project.id)}>
+                  <GrConfigure />
+                </button>
+                <button className="btn" onClick={() => handleDeleteProject(project.id)}>Delete</button>
+              </> :
+              <div></div>}
+          </div>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan={5} className="sinProyecto">
+        You don't have any projects created yet
+      </td>
+    </tr>
+  )}
+</tbody>
 
             </table>
         </div>

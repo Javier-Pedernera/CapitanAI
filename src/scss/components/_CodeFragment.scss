@@ -1,7 +1,43 @@
 .code-fragment {
     background-color: #222;
     color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    font-family: monospace;
+    // padding: 10px;
+    border-radius: 0px 0px 5px 5px;
+    font-family: var(--font-firaCode);
+    font-size: small;
   }
+
+  .lang_style{
+    background-color: rgb(150, 149, 149);
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px 5px 0px 0px;
+    font-family: var(--font-firaCode);
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .btn_copy{
+    width: 100px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #fff;
+    justify-content: space-around;
+    &:hover{
+      color: var(--yellowSoft-color);
+    }
+    & .icoCopy{
+      width: 15px;
+      height: 15px;
+    }
+  }
+.icoCopied{
+  color: var(--yellow-color);
+  width: 15px;
+  height: 15px;
+}

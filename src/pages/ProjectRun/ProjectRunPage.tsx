@@ -122,7 +122,7 @@ const ProjectRun = () => {
           </div><div className='arrow_div' onClick={handleToggleStageList}> <FaCircleArrowLeft className='arrow_stages' /></div> </div> : <div className='arrow_div2' onClick={handleToggleStageList}> <FaCircleArrowRight className='arrow_stages' /></div>}
       </div>
 
-      <div className='connection-stage'>
+      <div className= {isStageListVisible? 'connection_stage' : 'connection_stage_full'}>
         <Chat />
       </div>
 

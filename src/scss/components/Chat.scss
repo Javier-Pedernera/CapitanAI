@@ -83,10 +83,36 @@
     border: 1px solid #cccccc4d;
     border-radius: 5px;
     margin: 5px;
+&::-webkit-scrollbar{
+  width: 8px;
+  // height: 20px;
+}
+&::-webkit-scrollbar-track{
+  background: #f1f1f1;
+  box-shadow: inset 0 0 5px #c4c4c4; 
+  
+  // margin-top: 10px;
+  // margin-bottom: 10px;
+}
+&::-webkit-scrollbar-thumb{
+  background-color: var(--yellow-color);
+  box-shadow: inset 0 0 5px #b1861a;
+  border-right: none;
+    border-left: none;
+    border-radius: 4px;
+    max-height: 6px;
+}
+// &::-webkit-scrollbar-button {
+//   height: 30px;
+// }
+&::-webkit-scrollbar-thumb:hover {
+  background-color: var(--yellowSoft-color);; /* Color del botón de la barra de desplazamiento al pasar el mouse sobre él */
+}
   }
   
   .message {
     margin-bottom: 10px;
+    flex-direction:column
   }
   
   .chat-input {
@@ -134,38 +160,42 @@
   }
 
   .user{
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
     background-image: url(../../assets/images/user.png);
     background-size: cover;
     margin-right: 10px;
   }
   .assistant{
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
     background-image: url(../../assets/images/solologo.png);
     background-size: cover;
     margin-right: 10px;
   }
   .msgUser{
     display: flex;
-    align-items: center;
+    // align-items: center;
     justify-content: flex-start;
     width: 100%;
     font-family: var(--font-poppins);
     font-size: smaller;
     color: #7e7c7ce9;
+    margin-bottom: 10px;
   }
   .msgAssistant{
-    margin-top: 15px;
+    // margin-top: 15px;
     display: flex;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
     // flex-direction: row-reverse;
     // margin-right: 10px;
-    width: 100%;
+    // width: 100%;
     font-family: var(--font--robotoFlex);
     font-size: smaller;
     color: #2a2929e9;
+    // flex-wrap: wrap;
+    // align-items: center;
   }
   .loader{
     height: 30px;
@@ -228,4 +258,22 @@
     padding: 10px;
     border-radius: 5px;
     font-family: monospace;
+  }
+  .msgAssistantCode{
+    display: flex;
+    flex-direction: row;
+  }
+  .msgWithCode{
+    font-family: var(--font--robotoFlex);
+    font-size: smaller;
+    color: #2a2929e9;
+    // font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: start;
+   
+  }
+  .messageText{
+    width: fit-content;
   }

@@ -2,6 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getThread, getAllMessagesThread, messageUserAdded, messageAssistantAdded, createThread, chatClean } from "./MessageSlice";
 import { selectProyect_Stage, selectStageById } from "./StagesSlice";
+import { splitMessage } from "../../utils/splitMessage";
 
 
 const URL = import.meta.env.VITE_API_URL
@@ -36,23 +37,48 @@ const getThreadInfo = (projectId: string, stageId: string) => {
 };
 
 // traer todos los mensajes de la base de datos
-
 const getAllMessages = (thread_id: string) => {
     return async (dispatch: Dispatch) => {
-        try {
-            // usando api OpenAI
-            const response = await axios.get(`${URL}/api/messages/threads/${thread_id}`);
-            if (response.status === 200) {
-                return dispatch(getAllMessagesThread(response.data));
-            } else {
-                // Manejar errores de la llamada a la API
-                console.error('Error en la llamada a la API:', response.statusText);
+      try {
+        const response = await axios.get(`${URL}/api/messages/threads/${thread_id}`);
+        if (response.status === 200) {
+          // Filtrar y modificar los mensajes del asistente si contienen la etiqueta <CODIGO>
+          const modifiedMessages = response.data.map((message: any) => {
+            if (message.sender === 'assistant' && message.message.includes('<CODIGO>') && message.message.includes('</CODIGO>')) {
+              const parts = splitMessage(message.message);
+              return {
+                ...message,
+                message: parts
+              };
             }
-        } catch (error: any) {
-            alert({ error: error.message });
+            return message;
+          });
+          return dispatch(getAllMessagesThread(modifiedMessages));
+        } else {
+          // Manejar errores de la llamada a la API
+          console.error('Error en la llamada a la API:', response.statusText);
         }
+      } catch (error: any) {
+        alert({ error: error.message });
+      }
     };
-};
+  };
+// const getAllMessages = (thread_id: string) => {
+//     return async (dispatch: Dispatch) => {
+//         try {
+//             // usando api OpenAI
+//             const response = await axios.get(`${URL}/api/messages/threads/${thread_id}`);
+//             if (response.status === 200) {
+//                 return dispatch(getAllMessagesThread(response.data));
+//             } else {
+//                 // Manejar errores de la llamada a la API
+//                 console.error('Error en la llamada a la API:', response.statusText);
+//             }
+//         } catch (error: any) {
+//             alert({ error: error.message });
+//         }
+//     };
+// };
 // agregar mensaje del usuario
 const addUserMessage = (userMessage: any) => {
     return async (dispatch: Dispatch) => {
@@ -68,7 +94,8 @@ const addMessage = (userMessage: any) => {
     return async (dispatch: Dispatch) => {
         try {
             const openaiResponse = await axios.post(`${URL}/api/messages`, userMessage);
-            return dispatch(messageAssistantAdded(openaiResponse.data));
+            const respuestaDispatch = await dispatch(messageAssistantAdded(openaiResponse.data));
+            return respuestaDispatch
         } catch (error: any) {
             alert({ error: error.message });
         }

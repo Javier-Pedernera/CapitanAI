@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import '../../scss/components/_CodeFragment.scss';
 import { LiaClipboard, LiaClipboardCheckSolid } from 'react-icons/lia';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { RxClipboardCopy } from 'react-icons/rx';
 
 interface Props {
     code: string;

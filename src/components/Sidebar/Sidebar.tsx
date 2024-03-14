@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useSelector } from 'react-redux';
 // import { useHistory } from 'react-router-dom';
 import '../../scss/components/sidebar.scss';
@@ -6,15 +6,21 @@ import { Link } from 'react-router-dom';
 // import { FaRegCircleUser } from "react-icons/fa6";
 // import { SiCodeproject } from "react-icons/si";
 import { GrProjects } from "react-icons/gr";
+import { useAppSelector } from '../../Redux/Store/hooks';
+import { UserState } from '../../Redux/Actions/UserSlice';
+import { FaQuestionCircle } from 'react-icons/fa';
+import Route from '../../Models/RouteModel';
+import { GiCaptainHatProfile } from 'react-icons/gi';
+import { ImProfile } from 'react-icons/im';
 // import { MdHelpOutline } from "react-icons/md";
 
 const Sidebar: React.FC = () => {
   // const history = useHistory();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   // const isSidebarOpen = true
-  // const userActive: UserState = useAppSelector((state: any) => state.user);
-  // console.log(userActive.accessToken);
-
+  const userActive: UserState = useAppSelector((state: any) => state.user);
+  if (userActive) { console.log(userActive.accessToken); }
+  const [routes, setRoutes] = useState<Route[]>([]);
   // const dispatch= useAppDispatch()
   //     useEffect(() => {
   //         const token = Cookies.get("data");
@@ -23,30 +29,54 @@ const Sidebar: React.FC = () => {
   //         }
   //     }, [dispatch]);
 
-  let routes = []
 
-  routes = [
-    {
-      path: "/home",
-      name: "Home",
-      style: "homeicono"
-    },
-    {
-      path: "/dashboard",
-      name: "Projects",
-      style: "projecticono"
-    },
-    // {
-    //     path: "/profile",
-    //     name: "Profile",
-    //     style: "userProfile"
-    // },
-    // {
-    //     path: "/dashboard",
-    //     name: "",
-    //     style: "route"
-    // },
-  ]
+  useEffect(() => {
+    if (userActive && userActive.accessToken) {
+      setRoutes([
+        {
+          path: "/home",
+          name: "Home",
+          style: "homeicono"
+        },
+        {
+          path: "/dashboard",
+          name: "Projects",
+          style: "projecticono"
+        },
+        {
+          path: "/userProfile",
+          name: "Profile",
+          style: "userProfile"
+        },
+        {
+          path: "/faq",
+          name: "FAQ",
+          style: "faqicono"
+        }
+        // {
+        //     path: "/dashboard",
+        //     name: "",
+        //     style: "route"
+        // },
+      ])
+    } else {
+      setRoutes([
+        {
+          path: "/home",
+          name: "Home",
+          style: "homeicono"
+        },
+        {
+          path: "/faq",
+          name: "FAQ",
+          style: "faqicono"
+        }
+      ])
+    }
+  }, [userActive]);
+
+
+
   const handleMouseEnter = () => {
     setIsSidebarOpen(true);
   };
@@ -66,13 +96,14 @@ const Sidebar: React.FC = () => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
       <ul className="sidebar-list">
-        {routes.map((route, index) => (
+        {routes.map((route: any, index: any) => (
           <li key={index}>
             <div className="sidebar-icon">
               <Link className="linkSidebar" to={route.path}>
-                {route.style == "homeicono" ? <div className='logoCapitanIcono'></div> : null}
+                {route.style == "homeicono" ? <GiCaptainHatProfile className='iconos2' /> : null}
                 {route.style == "projecticono" ? <GrProjects className='iconos' /> : null}
-                {/* <div className={route.style}> </div> */}
+                {route.style == "faqicono" ? <FaQuestionCircle className='iconos2' /> : null}
+                {route.style == "userProfile" ? <ImProfile className='iconos2' /> : null}
                 <span className={`sidebar-text ${isSidebarOpen ? 'open' : ''}`}>{route.name}</span>
               </Link>
             </div>

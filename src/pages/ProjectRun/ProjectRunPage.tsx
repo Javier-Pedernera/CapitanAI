@@ -86,7 +86,7 @@ const ProjectRun = () => {
 
             <div className='titleProject'>
               <h2>{actualProject.name}</h2>
-              <h5 >Created: {actualProject.date}</h5>
+              <h6>Created: {actualProject.date}</h6>
 
             </div>
             <hr className='stage-divider' />

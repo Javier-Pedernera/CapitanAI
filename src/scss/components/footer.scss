@@ -7,6 +7,9 @@
     width: 100%;
     font-size: 9px;
     // height: 80px;
+    & p{
+        color: #fff;
+    }
 }
 
 .footer-content {
@@ -44,6 +47,7 @@ p {
     font-size: 9px;
 }
 .footer-section2{
+    color: #fff;
     font-size: 8px;
     align-items: center;
     display: flex;

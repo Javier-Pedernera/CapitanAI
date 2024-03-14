@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import '../../scss/components/_navBar.scss';
 import { Link } from 'react-router-dom';
 import user from "../../assets/images/user.png"
-// import Home from '../../pages/Home/HomePage';
 import logo from "../../assets/images/Logosinfondo.png"
-// import { useSelector } from 'react-redux';
-// import User from '../Models/User';
 import Cookies from "js-cookie";
 import { useAppDispatch, useAppSelector } from '../../Redux/Store/hooks';
 import { UserState } from '../../Redux/Actions/UserSlice';
 import { logOutUser, userLogIn } from '../../Redux/Actions/UserGet';
+import 'balloon-css';
+
 const Navbar: React.FC = () => {
     const userActive: UserState = useAppSelector((state: any) => state.user);
     // console.log(userActive.accessToken);
@@ -86,7 +85,7 @@ const Navbar: React.FC = () => {
                 ))}
                 <li>
                     {userActive.accessToken?.length ?
-                        <div className='divUser'> <div className='logOut' title='logout' onClick={logOut}></div>
+                        <div className='divUser'> <div aria-label="logOut" data-balloon-pos="down" className='logOut' onClick={logOut}></div>
                             <img src={user} title='Edit' className='imageUser' alt="userImg" /></div> : <div></div>}
                 </li>
             </ul>

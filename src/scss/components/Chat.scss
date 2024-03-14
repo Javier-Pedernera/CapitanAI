@@ -31,7 +31,7 @@
     align-items: baseline;
     color: rgb(82, 82, 82);
     align-items: center;
-    // width: 50%;
+    width: 40%;
   }
   .ico-copy {
     // position: absolute; /* Posiciona el icono sobre el texto */
@@ -116,8 +116,13 @@
   }
   
   .chat-input {
+    margin-top: 10px;
     display: flex;
     width: 85%;
+    padding: 30px;
+//borde o no?
+    border: 1px solid rgba(204, 204, 204, 0.3019607843);
+    border-radius: 5px;
   }
   
   .chat-input input {
@@ -127,11 +132,12 @@
     font-size: small;
     color: rgb(67, 66, 66);
     border-bottom-color: rgb(169, 166, 166);
-    border-bottom-width: 2px;
+    border-bottom-width: 1px;
     border-top: none;
     border-right: none;
     border-left: none;
     caret-color: var(--yellow-color);
+    
     
     &:focus-visible{
       border-bottom-color:var(--yellow-color);
@@ -150,12 +156,18 @@
     border: none;
     border-radius: 50px;
     background-color: var(--primary-color);
-    color: white;
+    color: #fff;
     font-size: 16px;
     cursor: pointer;
     &:hover {
       background-color: var(--yellow-color);
       color: var(--primary-color);
+    }
+    &:disabled{
+      background-color: #4f4e4e;
+      &:hover{
+        color: #fff;
+      }
     }
   }
 
@@ -176,12 +188,20 @@
   .msgUser{
     display: flex;
     // align-items: center;
+    background-color: #e7e7e75f;
+    // border: 1px solid #ffbc1126;
     justify-content: flex-start;
     width: 100%;
-    font-family: var(--font-poppins);
+    font-family: var(--font--Serif);
     font-size: smaller;
-    color: #7e7c7ce9;
+    // color: var(--primary-color);
+    color: rgba(44, 43, 43, 0.914);
     margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 2px;
+    // &:hover{
+    //   border: 1px solid #ffbc114e;
+    // }
   }
   .msgAssistant{
     // margin-top: 15px;
@@ -193,12 +213,18 @@
     // width: 100%;
     font-family: var(--font--robotoFlex);
     font-size: smaller;
-    color: #2a2929e9;
+    color: var(--primary-color);
     // flex-wrap: wrap;
     // align-items: center;
   }
+  .loaderDiv{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+  }
   .loader{
-    height: 30px;
+    height: 60px;
     width: auto;
   }
   .clean_ico{
@@ -217,25 +243,46 @@
       --balloon-move: 20px;
       --balloon-font-size: 10px;
   }
-  .Assisstantcopied{
+  .Assisstant_copied{
     display: flex;
     align-items: center;
-    transition: color 0.5s;
+    transition: opacity 0.5s;
     &:hover{
       color: rgba(52, 172, 52, 0.842);
+      & p{
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+        animation: fadeOut 2s ease-in-out 1s forwards;
+      }
+    }
+    & p{
+      opacity: 0;
+      
     }
   }
-  .Threadcopied{
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  .Thread_copied{
     display: flex;
     align-items: center;
     transition: color 0.5s;
     &:hover{
       color: rgba(52, 172, 52, 0.842);
+      & p{
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+        animation: fadeOut 2s ease-in-out 1s forwards;
+      }
+  }
+  & p{
+    opacity: 0;
   }
   }
   .ico-copied{
     right: 0; 
-    opacity: 0; 
+    opacity: 1; 
     margin-left: 5px;
     transition: opacity 0.3s; 
     height: 13px;
@@ -243,6 +290,7 @@
     color: rgba(52, 172, 52, 0.842);
   }
   .thread_content:hover .ico-copied {
+    transition: opacity 0.5s ease-in-out;
     opacity: 1;
     & button{
       height: 100%;
@@ -251,7 +299,11 @@
       margin-right: 100px;
     }
   }
-
+  .thread_content{
+    &:hover{
+color: var(--yellow-color);
+    }
+  }
   .code-fragment {
     background-color: #222;
     color: #fff;
@@ -266,14 +318,19 @@
   .msgWithCode{
     font-family: var(--font--robotoFlex);
     font-size: smaller;
-    color: #2a2929e9;
+    color: var(--primary-color);
     // font-weight: 500;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: start;
+    width: 100%;
    
   }
   .messageText{
     width: fit-content;
+  }
+  .code_Text{
+    display: flex;
+    width: 100%;
   }

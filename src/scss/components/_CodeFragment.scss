@@ -5,6 +5,8 @@
     border-radius: 0px 0px 5px 5px;
     font-family: var(--font-firaCode);
     font-size: small;
+    margin-bottom: 20px;
+;
   }
 
   .lang_style{
@@ -28,6 +30,10 @@
     align-items: center;
     color: #fff;
     justify-content: space-around;
+    --balloon-font-color: var(--primary-color);
+      --balloon-color: #e5ae22e5;
+      --balloon-move: 20px;
+      --balloon-font-size: 10px;
     &:hover{
       color: var(--yellowSoft-color);
     }

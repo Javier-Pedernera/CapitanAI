@@ -27,12 +27,12 @@ export const renderRoutes = (routes: RouteProps[]) => {
                 path={route.path}
                 element={
                     <Suspense fallback=
-                    {<div className="divLoader"><img className="loader" src={loader}></img></div>
-                    } 
+                        {<div className="divLoader"><img className="loader" src={loader}></img></div>
+                        }
                     // {<h1>Loading...</h1>}
                     >
                         <AuthGuard>
-                            <Layout>
+                            <Layout >
                                 {route.children ? <Outlet /> : <Component />}</Layout>
                         </AuthGuard>
                     </Suspense>
@@ -62,44 +62,50 @@ export const routes: RouteProps[] = [
         element: lazy(async () => await import("../pages/Register/Register")),
         name: "Home"
     },
+
     //layout va a tener navbar, footer y dentro los hijos (rutas protejidas)
     {
         layout: lazy(async () => await import("../components/Layout/layout")),
         children: [
+            {
+                path: "/faq",
+                element: lazy(async () => await import("../pages/FAQ/Faq")),
+                name: "Faq"
+            },
             {
                 path: "/home",
                 element: lazy(async () => await import("../pages/Home/HomePage")),
                 name: "Home"
             },
             {
-        authorization: lazy(async () => await import("../utils/Auth")),
-        children: [
+                authorization: lazy(async () => await import("../utils/Auth")),
+                children: [
 
-            {
-                path: "/Dashboard",
-                element: lazy(async () => await import("../pages/Dashboard/DashboardPage")),
-                name: "Dashboard",
+                    {
+                        path: "/Dashboard",
+                        element: lazy(async () => await import("../pages/Dashboard/DashboardPage")),
+                        name: "Dashboard",
 
+                    },
+                    {
+                        path: "/:projectId/run",
+                        element: lazy(async () => await import("../pages/ProjectRun/ProjectRunPage")),
+                        name: "ProjectRunPage"
+                    },
+                    {
+                        path: "/:projectId/configure",
+                        element: lazy(async () => await import("../pages/ProjectEdit/ProjectEditPage")),
+                        name: "ProjectEditPage"
+                    },
+                    {
+                        path: "/userProfile",
+                        element: lazy(async () => await import("../pages/UserProfile/UserProfile")),
+                        name: "UserProfile"
+                    }
+                ]
             },
-            {
-                path: "/:projectId/run",
-                element: lazy(async () => await import("../pages/ProjectRun/ProjectRunPage")),
-                name: "ProjectRunPage"
-            },
-            {
-                path: "/:projectId/configure",
-                element: lazy(async () => await import("../pages/ProjectEdit/ProjectEditPage")),
-                name: "ProjectEditPage"
-            },
-            {
-                path: "/userProfile",
-                element: lazy(async () => await import("../pages/UserProfile/UserProfile")),
-                name: "UserProfile"
-            }
+
         ]
     },
 
-        ]
-    },
-    
 ];

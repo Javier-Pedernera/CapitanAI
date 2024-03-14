@@ -49,9 +49,10 @@ const Chat = () => {
   }, [threadSelected]);
 
 
-  // useEffect(() => {
-  //   console.log(loadingMsg);
-  // }, [loadingMsg]);
+  useEffect(() => {
+    setAssistantCopy(false)
+    setThreadCopy(false)
+  }, [stage]);
 
   const sendMessage = async () => {
     // Enviar mensaje del usuario al backend
@@ -65,10 +66,10 @@ const Chat = () => {
       dispatch(addUserMessage(messageUser))
       setLoadingMsg(true)
       // console.log(loadingMsg);
-
+      setInputValue('');
       const responseOpenai = await dispatch(addMessage(messageUser));
       console.log(responseOpenai);
-      setInputValue('');
+
     } catch (error) {
       console.error('Error sending message:', error);
     } finally {
@@ -113,6 +114,19 @@ const Chat = () => {
       }
     });
   }
+  console.log(threadCopy);
+  console.log(assistantCopy);
+
+  const handlecopyText = (target: string) => {
+    if (target == "thread") {
+      setAssistantCopy(false);
+      setThreadCopy(true)
+    } else {
+      setAssistantCopy(true);
+      setThreadCopy(false)
+    }
+
+  }
   // stageMessages.map((msj) => console.log("typeof mensaje", typeof (msj.message)))
   // console.log("detemina mostrar o no loader", loadingMsg);
   // console.log("detemina mostrar o no loader", loadingMsg);
@@ -124,19 +138,17 @@ const Chat = () => {
           <div className='thread_assistant'> <button onClick={handleCleanThread} className='btn_clean' aria-label="Clean thread" data-balloon-pos="down"><GiBroom className='clean_ico' /></button> Thread: <div className='thread_content'>
             <CopyToClipboard text={threadSelected.assistant_thread_id}
               onCopy={() => {
-                setThreadCopy(true);
-                setAssistantCopy(false)
+                handlecopyText("thread");
               }}>
-              {assistantCopy ? <span className='Assisstantcopied'>{threadSelected.assistant_thread_id}<LiaClipboardCheckSolid className='ico-copied' /></span> : <span>{threadSelected.assistant_thread_id}<RxClipboardCopy className='ico-copy' /></span>}
+              {threadCopy ? <span className='Assisstant_copied'>{threadSelected.assistant_thread_id}<LiaClipboardCheckSolid className='ico-copied' /> <p className='textoCopiado'>copied!</p> </span> : <span>{threadSelected.assistant_thread_id}<RxClipboardCopy className='ico-copy' /></span>}
             </CopyToClipboard></div></div>
 
           <div className='thread_assistant'>Assistant: <div className='thread_content'>
             <CopyToClipboard text={ProjectStageInfo.assistant_id}
               onCopy={() => {
-                setAssistantCopy(true);
-                setThreadCopy(false)
+                handlecopyText("assist");
               }}>
-              {threadCopy ? <span className='Threadcopied'>{ProjectStageInfo.assistant_id}<LiaClipboardCheckSolid className='ico-copied'></LiaClipboardCheckSolid></span> : <span>{ProjectStageInfo.assistant_id}<RxClipboardCopy className='ico-copy' /></span>}
+              {assistantCopy ? <span className='Thread_copied'>{ProjectStageInfo.assistant_id}<LiaClipboardCheckSolid className='ico-copied'></LiaClipboardCheckSolid> <p className='textoCopiado'>copied!</p></span> : <span>{ProjectStageInfo.assistant_id}<RxClipboardCopy className='ico-copy' /></span>}
               {/* <span>{ProjectStageInfo.assistant_id}<RxClipboardCopy className='ico-copy' /></span> */}
             </CopyToClipboard></div></div>
           {/* 
@@ -163,7 +175,7 @@ const Chat = () => {
                   </div>
                   <div key={msg.message_id} className='msgWithCode'>
                     {msg.message.map((msgCod: any, index: any) => !msgCod.isCode ?
-                      <div key={index}>{msgCod.content}</div>
+                      <div className='code_Text' key={index}>{msgCod.content}</div>
                       : <div className="msgAssistant">
                         <CodeFragment code={msgCod.content} />
                       </div>)}
@@ -190,7 +202,7 @@ const Chat = () => {
               )}
             </div>
           ))} */}
-          {loadingMsg && <img src={loader} alt="" className="loader" />}
+          {<div className='loaderDiv'>{loadingMsg && <img src={loader} alt="" className="loader" />}</div>}
         </div>
         <form className="chat-input" onSubmit={(e) => {
           e.preventDefault();
@@ -202,7 +214,7 @@ const Chat = () => {
             onChange={(e) => setInputValue(e.target.value)}
             placeholder='Enter your message...'
           />
-          <button type="submit" className='btn'>Send</button>
+          <button type="submit" className='btn' disabled={loadingMsg}>Send</button>
         </form>
       </div>
         : <div className='selectAnyStage'> Select stage</div>}

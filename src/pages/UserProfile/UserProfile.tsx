@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { userLogIn } from '../../Redux/Actions/UserGet';
 import Cookies from "js-cookie";
 import { useAppDispatch, useAppSelector } from '../../Redux/Store/hooks';
-// import { UserState } from '../../Redux/Actions/UserSlice';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import '../../scss/components/userProfile.scss';
+import { LiaClipboardCheckSolid } from 'react-icons/lia';
+import { RxClipboardCopy } from 'react-icons/rx';
 
 interface UserProfileModel {
   email: string;
@@ -12,6 +14,7 @@ interface UserProfileModel {
 
 const UserProfile = () => {
   const userActive: UserProfileModel = useAppSelector((state: any) => state.user).userData;
+  const [IdCopy, setIdCopy] = useState(false);
   // console.log(userActive.accessToken);
   // const user: UserProfileModel = userActive.userData
   const dispatch = useAppDispatch()
@@ -23,15 +26,26 @@ const UserProfile = () => {
 
   }, [dispatch]);
   console.log(userActive);
-
+  const handlecopyText = () => {
+    setIdCopy(!IdCopy)
+  }
   return (
     <div className='userPContainer'>
       <div className="user-profile">
         <h2>User Profile</h2>
         <div className="profile-info">
-          <p><strong>Name:</strong> {userActive.email}</p>
+          <p><strong>Name:</strong> {userActive.email}
+          </p>
           <hr />
-          <p><strong>UsderId:</strong> {userActive.id}</p>
+          <strong>UsderId:</strong>
+          <div className='IdUser_content'>
+            <CopyToClipboard text={userActive.id}
+              onCopy={() => {
+                handlecopyText();
+              }}>
+              {IdCopy ? <span className='user_copied'>{userActive.id}<LiaClipboardCheckSolid className='ico_copied' /> <span  className='textcopiedid'>copied!</span> </span> : <span>{userActive.id}<RxClipboardCopy className='ico_copy' /></span>}
+            </CopyToClipboard></div>
+          {/* <p> {userActive.id}</p> */}
         </div>
       </div>
     </div>

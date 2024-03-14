@@ -1,13 +1,16 @@
 .sidebar-list{
+  height: 100%;
+  position: relative;
     display: flex;
     flex-direction: column;
-    margin-top: 80px;
+    margin-top: 50px;
 }
 
 .sidebar {
   display: flex;
     width: 60px;
-    height: 100%;
+    // height: 100vh;
+    // height: 100%;
     background-color: var(--primary-color);
     transition: width 0.3s;
     overflow-x: hidden;
@@ -58,12 +61,13 @@
   .logoCapitanIcono{
     width: 30px;
     height: 30px;
-    background-image: url("../../assets/images/solologo.png");
+    background-image: url("../../assets/images/Logosinfondo.png");
     background-size: cover;
   }
   .projecticono{
     width: 30px;
     height: 30px;
+    min-width: 30px;
     // margin-left: 30px;
     // color: var(--yellow-color);
   }
@@ -73,8 +77,15 @@
     color: var(--yellow-color);
     width: 18px;
     height: 18px;
+    min-width: 18px;
   }
-
+  .iconos2{
+    margin-left: 5px;
+    color: var(--yellow-color);
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+  }
   .politicas{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 10px;

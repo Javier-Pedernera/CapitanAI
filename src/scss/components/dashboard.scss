@@ -1,9 +1,11 @@
 .dashboard {
-    padding: 10px;
-    height: 100%;
+    padding: 20px;
+    // height: 100%;
+    height: 100vh;
     @media (max-width: 500px) {
       padding: 5px;
-      height: auto;
+      height: 100vh;
+      width: 100vh;
     }
     h2 {
       font-family: var(--font-robotoSerif);

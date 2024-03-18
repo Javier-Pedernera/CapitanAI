@@ -15,35 +15,9 @@ import { GiBroom } from 'react-icons/gi';
 import 'balloon-css';
 import { LiaClipboardCheckSolid } from 'react-icons/lia';
 import Swal from 'sweetalert2';
+import CodeFragment from '../CodeFragment/CodeFragment';
 
 const Chat = () => {
-
-  //   const ejemploCODE = {info:
-  //    ` Empecemos por el modelo.
-  // <CODE>Archivo: project_stage.py (ubicado en la carpeta /models)
-  // from app import db
-  // class ProjectStage(db.Model):
-  //     __tablename__ = 'project_stages'
-  //     project_id = db.Column(db.Integer, db.ForeignKey('projects.project_id'), primary_key=True)
-  //     stage_id = db.Column(db.Integer, db.ForeignKey('stages.stage_id'), primary_key=True)
-  //     assistant_id = db.Column(db.String(50))
-  //     stage_description = db.Column(db.Text)
-  //     def serialize(self):
-  //         return {
-  //             "project_id": self.project_id,
-  //             "stage_id": self.stage_id,
-  //             "assistant_id": self.assistant_id,
-  //             "stage_description": self.stage_description
-  //         }
-  //     def __init__(self, project_id, stage_id, assistant_id=None, stage_description=None):
-  //         self.project_id = project_id
-  //         self.stage_id = stage_id
-  //         self.assistant_id = assistant_id
-  //         self.stage_description = stage_description
-  //     def __repr__(self):
-  //         return f"<ProjectStage {self.project_id}-{self.stage_id}: {self.assistant_id}>"
-  // </CODE>`
-  //   }
 
   const threadSelected: Thread = useAppSelector((state: any) => state.messages.threadSelected);
   const ProjectStageInfo: Project_StageModel = useAppSelector((state: any) => state.stages.projectStageInfo);
@@ -56,6 +30,8 @@ const Chat = () => {
   const [assistantCopy, setAssistantCopy] = useState(false);
   const [threadCopy, setThreadCopy] = useState(false);
   const dispatch = useAppDispatch()
+
+
   // const { projectId } = useParams();
   // const containerRef = useRef(null);
 
@@ -64,13 +40,19 @@ const Chat = () => {
   // console.log("project en el chat", projectId);
   // console.log("ProjectStageInfo", ProjectStageInfo);
   // console.log("threadSelected", threadSelected);
-  // console.log("stageMessages", stageMessages);
+  console.log("stageMessages en chat", stageMessages);
 
   useEffect(() => {
     if (threadSelected.thread_id) {
       dispatch(getAllMessages(threadSelected.thread_id))
     }
   }, [threadSelected]);
+
+
+  useEffect(() => {
+    setAssistantCopy(false)
+    setThreadCopy(false)
+  }, [stage]);
 
   const sendMessage = async () => {
     // Enviar mensaje del usuario al backend
@@ -81,14 +63,18 @@ const Chat = () => {
         ass_id: ProjectStageInfo.assistant_id,
         sender: "user"
       }
-      // console.log(messageUser);
       dispatch(addUserMessage(messageUser))
       setLoadingMsg(true)
-      await dispatch(addMessage(messageUser));
-      setLoadingMsg(false)
+      // console.log(loadingMsg);
       setInputValue('');
+      const responseOpenai = await dispatch(addMessage(messageUser));
+      console.log(responseOpenai);
+
     } catch (error) {
       console.error('Error sending message:', error);
+    } finally {
+      setLoadingMsg(false); // Esto se ejecutará independientemente del resultado de la petición
+      // console.log(loadingMsg);
     }
   };
 
@@ -128,7 +114,22 @@ const Chat = () => {
       }
     });
   }
+  console.log(threadCopy);
+  console.log(assistantCopy);
 
+  const handlecopyText = (target: string) => {
+    if (target == "thread") {
+      setAssistantCopy(false);
+      setThreadCopy(true)
+    } else {
+      setAssistantCopy(true);
+      setThreadCopy(false)
+    }
+
+  }
+  // stageMessages.map((msj) => console.log("typeof mensaje", typeof (msj.message)))
+  // console.log("detemina mostrar o no loader", loadingMsg);
+  // console.log("detemina mostrar o no loader", loadingMsg);
   return (
 
     <div className="chat-container">
@@ -137,41 +138,75 @@ const Chat = () => {
           <div className='thread_assistant'> <button onClick={handleCleanThread} className='btn_clean' aria-label="Clean thread" data-balloon-pos="down"><GiBroom className='clean_ico' /></button> Thread: <div className='thread_content'>
             <CopyToClipboard text={threadSelected.assistant_thread_id}
               onCopy={() => {
-                setThreadCopy(true);
-                setAssistantCopy(false)
+                handlecopyText("thread");
               }}>
-              {assistantCopy ? <span className='Assisstantcopied'>{threadSelected.assistant_thread_id}<LiaClipboardCheckSolid className='ico-copied' /></span> : <span>{threadSelected.assistant_thread_id}<RxClipboardCopy className='ico-copy' /></span>}
+              {threadCopy ? <span className='Assisstant_copied'>{threadSelected.assistant_thread_id}<LiaClipboardCheckSolid className='ico-copied' /> <p className='textoCopiado'>copied!</p> </span> : <span>{threadSelected.assistant_thread_id}<RxClipboardCopy className='ico-copy' /></span>}
             </CopyToClipboard></div></div>
 
           <div className='thread_assistant'>Assistant: <div className='thread_content'>
             <CopyToClipboard text={ProjectStageInfo.assistant_id}
               onCopy={() => {
-                setAssistantCopy(true);
-                setThreadCopy(false)
+                handlecopyText("assist");
               }}>
-              {threadCopy ? <span className='Threadcopied'>{ProjectStageInfo.assistant_id}<LiaClipboardCheckSolid className='ico-copied'></LiaClipboardCheckSolid></span> : <span>{ProjectStageInfo.assistant_id}<RxClipboardCopy className='ico-copy' /></span>}
+              {assistantCopy ? <span className='Thread_copied'>{ProjectStageInfo.assistant_id}<LiaClipboardCheckSolid className='ico-copied'></LiaClipboardCheckSolid> <p className='textoCopiado'>copied!</p></span> : <span>{ProjectStageInfo.assistant_id}<RxClipboardCopy className='ico-copy' /></span>}
               {/* <span>{ProjectStageInfo.assistant_id}<RxClipboardCopy className='ico-copy' /></span> */}
             </CopyToClipboard></div></div>
           {/* 
           <div className='thread_assistant'>Assistant: <div className='thread_content'>{ProjectStageInfo.assistant_id}</div> <RxClipboardCopy className='ico-copy' /></div> */}
         </div>
         <div className="chat-messages">
-          {stageMessages?.map((msg, index) => (
+          {stageMessages.map((msg, index) => (
             <div key={index} className="message">
-              {!loadingMsg || index !== stageMessages.length - 1 ? (
-                <div className={msg.sender === 'user' ? "msgUser" : "msgAssistant"}>
+              {msg.sender === "user" ? (
+                <div className="msgUser">
+                  <div className={msg.sender}></div>
+                  <div className='messageText'>{msg.message}</div>
+                </div>
+              ) : !Array.isArray(msg.message) ?
+                (
+                  <div className="msgAssistant">
+                    <div className={msg.sender}></div>
+                    <div className='messageText'>{msg.message}</div>
+                  </div>
+                ) : <div className='msgAssistantCode'>
+                  <div className="msgAssistant">
+                    <div className={msg.sender}></div>
+
+                  </div>
+                  <div key={msg.message_id} className='msgWithCode'>
+                    {msg.message.map((msgCod: any, index: any) => !msgCod.isCode ?
+                      <div className='code_Text' key={index}>{msgCod.content}</div>
+                      : <div className="msgAssistant">
+                        <CodeFragment code={msgCod.content} />
+                      </div>)}
+                  </div>
+
+                </div>
+
+              }
+            </div>
+          ))}
+
+          {/* {stageMessages.map((msg, index) => (
+            <div key={index} className="message">
+              {msg.sender === "user" ? (
+                <div className="msgUser">
                   <div className={msg.sender}></div>
                   <div>{msg.message}</div>
                 </div>
               ) : (
-                <img src={loader} alt="" className='loader' />
+                <div className="msgAssistant">
+                  <div className={msg.sender}></div>
+                  <div>{msg.message}</div>
+                </div>
               )}
             </div>
-          ))}
+          ))} */}
+          {<div className='loaderDiv'>{loadingMsg && <img src={loader} alt="" className="loader" />}</div>}
         </div>
         <form className="chat-input" onSubmit={(e) => {
-          e.preventDefault(); // Evitar el envío del formulario por defecto
-          sendMessage(); // Llamar a la función para enviar el mensaje
+          e.preventDefault();
+          sendMessage();
         }}>
           <input
             type="text"
@@ -179,7 +214,7 @@ const Chat = () => {
             onChange={(e) => setInputValue(e.target.value)}
             placeholder='Enter your message...'
           />
-          <button type="submit" className='btn'>Send</button>
+          <button type="submit" className='btn' disabled={loadingMsg}>Send</button>
         </form>
       </div>
         : <div className='selectAnyStage'> Select stage</div>}

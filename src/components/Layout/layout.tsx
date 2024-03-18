@@ -9,13 +9,16 @@ interface AppLayoutProps {
 const Layout = ({ children }: AppLayoutProps) => {
     return (
         <div className="Container_layout">
-            <Sidebar />
+            <Navbar />
             <div className="layout">
-                <Navbar />
 
-                {children}
-                <Footer></Footer>
-            </div></div>
+                <Sidebar />
+                <div className="childrenLayout">{children}</div>
+
+
+            </div>
+            <Footer></Footer>
+        </div>
 
     )
 }

@@ -118,8 +118,8 @@ const ProjectEdit = () => {
     (async () => {
       const { value: formValues } = await Swal.fire({
         heightAuto: false,
-      title: `Create stage in ${actualProject.name}`,
-      html: `
+        title: `Create stage in ${actualProject.name}`,
+        html: `
         <input placeholder="Stage's name" id="swal-input1" class="swal2-input">
         <textarea placeholder="Stage description..." id="swal-text" class="swal2-textarea"></textarea>
         <select id="swal-select" class="swal2-select">
@@ -130,33 +130,33 @@ const ProjectEdit = () => {
         <div id="created-at-info"></div>
         <div id="instructions-info"></div>
       `,
-      focusConfirm: false,
-      customClass: {
-        popup: 'custom-popup-class'
-      },
-      didOpen: () => {
-        const select = document.getElementById("swal-select") as HTMLSelectElement;
-        const modelInfo = document.getElementById("model-info");
-        const createdAtInfo = document.getElementById("created-at-info");
-        const instructionsInfo = document.getElementById("instructions-info");
-        select.addEventListener("change", () => {
-          const selectedAssistantId = select.value;
-          const selectedAssistant = actualAssistants.find(assistant => assistant.id === selectedAssistantId);
-          if (selectedAssistant) {
-            if (modelInfo) {
-              modelInfo.innerHTML = ` <div id="info_title">Model:</div> ${selectedAssistant.model}`;
+        focusConfirm: false,
+        customClass: {
+          popup: 'custom-popup-class'
+        },
+        didOpen: () => {
+          const select = document.getElementById("swal-select") as HTMLSelectElement;
+          const modelInfo = document.getElementById("model-info");
+          const createdAtInfo = document.getElementById("created-at-info");
+          const instructionsInfo = document.getElementById("instructions-info");
+          select.addEventListener("change", () => {
+            const selectedAssistantId = select.value;
+            const selectedAssistant = actualAssistants.find(assistant => assistant.id === selectedAssistantId);
+            if (selectedAssistant) {
+              if (modelInfo) {
+                modelInfo.innerHTML = ` <div id="info_title">Model:</div> ${selectedAssistant.model}`;
+              }
+              if (createdAtInfo) {
+                const createdAt = new Date(parseInt(selectedAssistant.created_at) * 1000);
+                const formattedDate = createdAt.toLocaleDateString('en-US');
+                createdAtInfo.innerHTML = `<div id="info_title">Created At:</div> ${formattedDate}`;
+              }
+              if (instructionsInfo) {
+                instructionsInfo.innerHTML = `<div id="info_title">Instructions:</div> <div id="instrucc_content">${selectedAssistant.instructions}</div>`;
+              }
             }
-            if (createdAtInfo) {
-              const createdAt = new Date(parseInt(selectedAssistant.created_at) * 1000);
-              const formattedDate = createdAt.toLocaleDateString('en-US');
-              createdAtInfo.innerHTML = `<div id="info_title">Created At:</div> ${formattedDate}`;
-            }
-            if (instructionsInfo) {
-              instructionsInfo.innerHTML = `<div id="info_title">Instructions:</div> <div id="instrucc_content">${selectedAssistant.instructions}</div>`;
-            }
-          }
-        });
-      },
+          });
+        },
         preConfirm: () => {
           const name = document.getElementById("swal-input1") as HTMLInputElement;
           const assistantId = (document.getElementById("swal-select") as HTMLSelectElement)?.value;
@@ -320,7 +320,11 @@ const ProjectEdit = () => {
 
   return (
     <div className="project_container_edit">
-      <IoMdArrowRoundBack onClick={handleBack} className="backArrow" />
+      <div className="backArrow">
+        <IoMdArrowRoundBack onClick={handleBack} />
+        <h6>back</h6>
+      </div>
+
       <div className='cards_edit'>
         <h2>Project configuration</h2>
         <hr className='stage_divider_edit' />
@@ -343,7 +347,7 @@ const ProjectEdit = () => {
             <button className='create_stage_button' onClick={handleAddCollaborator}>+</button>
             {actualProject?.collaborators?.length > 1 ? actualProject.collaborators.map((collaborator, index) => (
               <li key={index}>
-                { collaborator?.public_id !== user.id ?
+                {collaborator?.public_id !== user.id ?
                   <div className='colab_card'>
                     <h6>userId:</h6> <div> {collaborator.public_id} </div>
                     <h6>email:</h6> <div>{collaborator.username}</div>

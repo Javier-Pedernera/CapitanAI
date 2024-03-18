@@ -111,7 +111,7 @@ const Register = () => {
               <span className="form-error"> {(errors.confirmPassword as FieldError).message}</span>
             )}
             <button type="submit" className="submit-button">Join Now</button>
-            <Link to="/login" className="create-account-button">¿"If you already have an account, log in here."</Link>
+            <Link to="/login" className="already-account-button">¿"If you already have an account, log in here."</Link>
           </form>
         </div>
       </div>

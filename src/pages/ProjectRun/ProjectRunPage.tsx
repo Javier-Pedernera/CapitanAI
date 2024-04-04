@@ -21,13 +21,13 @@ const ProjectRun = () => {
   const userActive: User = useAppSelector((state: any) => state.user).userData;
   const stagesProject: CreateStage[] = useAppSelector((state: any) => state.stages.stagesProyect);
   const actualProject: ProjectModel = useAppSelector((state: any) => state.projects.projectActual);
-  // const stageSelected: any = useAppSelector((state: any) => state.stages.stageSelected);
+  const stageSelected: any = useAppSelector((state: any) => state.stages.stageSelected);
   // const [selectStage, setselectStage] = useState<Stage | null>(null);
   const [isStageListVisible, setIsStageListVisible] = useState(true);
   // console.log("userActive", userActive);
   // console.log("actualProyect", actualProject);
   // console.log("stages del proyecto actual", stagesProject);
-  // console.log("stage seleccionada", stageSelected);
+  console.log("stage seleccionada", stageSelected);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch()
@@ -122,7 +122,7 @@ const ProjectRun = () => {
           </div><div className='arrow_div' onClick={handleToggleStageList}> <FaCircleArrowLeft className='arrow_stages' /></div> </div> : <div className='arrow_div2' onClick={handleToggleStageList}> <FaCircleArrowRight className='arrow_stages' /></div>}
       </div>
 
-      <div className= {isStageListVisible? 'connection_stage' : 'connection_stage_full'}>
+      <div className={isStageListVisible ? 'connection_stage' : 'connection_stage_full'}>
         <Chat />
       </div>
 

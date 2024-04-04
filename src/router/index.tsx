@@ -60,7 +60,7 @@ export const routes: RouteProps[] = [
     {
         path: "/register",
         element: lazy(async () => await import("../pages/Register/Register")),
-        name: "Home"
+        name: "Register"
     },
 
     //layout va a tener navbar, footer y dentro los hijos (rutas protejidas)
@@ -68,14 +68,14 @@ export const routes: RouteProps[] = [
         layout: lazy(async () => await import("../components/Layout/layout")),
         children: [
             {
-                path: "/faq",
-                element: lazy(async () => await import("../pages/FAQ/Faq")),
-                name: "Faq"
-            },
-            {
                 path: "/home",
                 element: lazy(async () => await import("../pages/Home/HomePage")),
                 name: "Home"
+            },
+            {
+                path: "/faq",
+                element: lazy(async () => await import("../pages/FAQ/Faq")),
+                name: "Faq"
             },
             {
                 authorization: lazy(async () => await import("../utils/Auth")),

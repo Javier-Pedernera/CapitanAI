@@ -45,12 +45,12 @@ const getAllMessages = (thread_id: string) => {
                 // Filtrar y modificar los mensajes del asistente si contienen la etiqueta <CODIGO>
                 const modifiedMessages = response.data.map((message: any) => {
                     // console.log((message.sender === 'assistant' && message.message.includes('<CODIGO>') || message.message.includes('<CODE>') && message.message.includes('</CODIGO>') || message.message.includes( '</CODE>')))
-                    if ((message.sender === 'assistant' && message.message.includes('<CODIGO>') || message.message.includes('<CODE>') && message.message.includes('</CODIGO>') || message.message.includes( '</CODE>'))) {
-                    //    const replacedMessage = message.message.replace(/<CODE\/>/g, '<CODIGO>').replace(/<\/CODE\/>/g, '</CODIGO>'); cambiar palabra y no etiqueta
-                       const replacedMessage = message.message.replace( /CODE>/g,'CODIGO>');
+                    if ((message.sender === 'assistant' && message.message.includes('<CODIGO>') || message.message.includes('<CODE>') && message.message.includes('</CODIGO>') || message.message.includes('</CODE>'))) {
+                        //    const replacedMessage = message.message.replace(/<CODE\/>/g, '<CODIGO>').replace(/<\/CODE\/>/g, '</CODIGO>'); cambiar palabra y no etiqueta
+                        const replacedMessage = message.message.replace(/CODE>/g, 'CODIGO>');
                         // console.log("mensaje dentro del map despues de reemplaza code",message.message);
                         // console.log("replacedMessage",replacedMessage);
-                        
+
                         const parts = splitMessage(replacedMessage);
                         return {
                             ...message,
@@ -58,7 +58,7 @@ const getAllMessages = (thread_id: string) => {
                         };
                     }
                     // console.log("message en el get",message);
-                    
+
                     return message;
                 });
                 return dispatch(getAllMessagesThread(modifiedMessages));
@@ -101,9 +101,11 @@ const addUserMessage = (userMessage: any) => {
 const addMessage = (userMessage: any) => {
     return async (dispatch: Dispatch) => {
         try {
+            console.log("mensaje del usuario", userMessage);
+
             const openaiResponse = await axios.post(`${URL}/api/messages`, userMessage);
-            console.log("openaiResponse",openaiResponse);
-            
+            console.log("openaiResponse", openaiResponse);
+
             let OpenaiMsg = openaiResponse.data;
 
             // console.log("if para entrar", openaiResponse.data.sender === 'assistant' && openaiResponse.data.message.includes('<CODIGO>') && openaiResponse.data.message.includes('</CODIGO>'));

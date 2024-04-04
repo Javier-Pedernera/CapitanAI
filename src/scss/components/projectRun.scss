@@ -6,7 +6,6 @@
   height: 100vh;
   margin: 0 auto;
   padding: 20px;
-  // border: 1px solid #ccc;
   border-radius: 5px;
 }
 
@@ -20,7 +19,6 @@
 
 .add-stage button {
   padding: 8px 15px;
-  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -30,10 +28,6 @@
 display: flex;
 align-items: end;
 justify-content: end;
-}
-
-.add-stage button:hover {
-  background-color: #0056b3;
 }
 
 .delete_edit{
@@ -68,15 +62,15 @@ height: 30px;
 .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiAccordion-root.MuiAccordion-rounded.MuiAccordion-gutters.css-1c35hjw-MuiPaper-root-MuiAccordion-root{
 border-radius: 5px;
 }
-// .MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters.css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root{
-//   // background-color: var(--primary-color);
-//   border-radius: 5px;
-//   color: #f9f9f9;
-//   &:hover{
-//     background-color: var(--yellow-color);
-//     color: var(--primary-color);
-//   }
-// }
+.MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters.css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root{
+  // background-color: var(--primary-color);
+  border-radius: 5px;
+  color: #f9f9f9;
+  &:hover{
+    background-color: var(--yellow-color);
+    color: var(--primary-color);
+  }
+}
 
 .MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters.css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root{
   border-radius: 5px 5px 0px 0px;
@@ -86,33 +80,69 @@ border-radius: 5px;
 min-height: 30px;
 }
 .css-1c35hjw-MuiPaper-root-MuiAccordion-root.Mui-expanded{
-  // background-color: #e5ae22;
-  background-color: #f9f9f9;
+  background-color: #e5ae22;
+  // background-color: #f9f9f9;
   color: var(--primary-color);
 }
 .stage-card {
-  background-color: var(--yellow-color);
-  // padding: 20px;
-  // border-radius: 8px;
-  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  // background-color: var(--yellow-color);
+  background-color: var(--primary-color);
+  color: #f9f9f9;
+  // border-radius: 50px 0px 0px 0px;
+  & .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root{
+    border-radius: 30px 0px 30px 0px;
+    background-color: var(--primary-color);
+    color: #f9f9f9;
+    & .Mui-expanded{
+      color: #e5ae22;
+      & .css-15v22id-MuiAccordionDetails-root{
+        background-color: red;
+        // border-radius: 30px 0px 30px 0px;
+      }
+    }
+    
+  }
+   
+  & .MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters.css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root{
+    background-color: var(--primary-color);
+  }
+ & .css-1086bdv-MuiPaper-root-MuiAccordion-root{
+    background-color: var(--primary-color);
+    color: #e5ae22;
+    box-shadow: 0px !important;
+    border-radius: 30px 0px 30px 0px !important;
+  }
   & .MuiButtonBase-root.MuiAccordionSummary-root.MuiAccordionSummary-gutters.css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root{
     background-color: var(--primary-color);
     border-radius: 5px;
     color: #f9f9f9;
+    
     &:hover{
       background-color: var(--yellow-color);
-      color: var(--primary-color);
+      color: var(--yellow-color);
     }
   }
-  .MuiAccordionSummary-expandIconWrapper.css-yw020d-MuiAccordionSummary-expandIconWrapper{
+  & .MuiAccordionSummary-expandIconWrapper.css-yw020d-MuiAccordionSummary-expandIconWrapper{
     // margin: 0;
     color: #f9f9f9;
     &:hover{
-      color: var(--primary-color);
+      color: var(--yellow-color);
     }
+  }
+  & .MuiAccordionDetails-root.css-15v22id-MuiAccordionDetails-root{
+    background-color: var(--yellow-color);
+    color: var(--primary-color);
+    border-radius: 0px 30px 0px 0px;
+    box-shadow: 1px 1px 1px 0px rgb(150, 150, 150);;
   }
 
 
+}
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiAccordion-root.MuiAccordion-rounded.MuiAccordion-gutters.stage-card.css-1086bdv-MuiPaper-root-MuiAccordion-root{
+  border-radius: 30px 0px 30px 0px;
+}
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiAccordion-root.MuiAccordion-rounded.Mui-expanded.MuiAccordion-gutters.stage-card.css-1086bdv-MuiPaper-root-MuiAccordion-root{
+  box-shadow: none
 }
 .stage-nonselect-card{
   background-color: #f9f9f9;

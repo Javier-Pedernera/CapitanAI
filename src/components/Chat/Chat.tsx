@@ -16,8 +16,36 @@ import Swal from 'sweetalert2';
 import CodeFragment from '../CodeFragment/CodeFragment';
 import { BsImages } from 'react-icons/bs';
 import { MdDeleteForever } from 'react-icons/md';
+import { TextField, styled } from '@mui/material';
+// import { withStyles, createStyles } from '@material-ui/core/styles';
+const CssTextField = styled(TextField)({
+  '& label.Mui-focused': {
+    color: '#c0c1c2',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: '#B2BAC2',
+  },
+  '& .MuiOutlinedInput-root': {
+    '&.fieldset': {
+      borderColor: '#E0E3E7',
+    },
+    '&:hover fieldset': {
+      borderColor: '#B2BAC2',
+    },
+    '&.Mui-focused fieldset': {
+      // border-top: 'none',
+      // border-right: 'none',
+      //  border-left: 'none',
+      border: '1px solid #ffbc11d4',
 
-const Chat = () => {
+    },
+  },
+});
+interface ChatProps {
+  setExpandedIndex: (index: number | null) => void;
+}
+
+const Chat: React.FC<ChatProps> = ({ setExpandedIndex }) => {
 
   const threadSelected: Thread = useAppSelector((state: any) => state.messages.threadSelected);
   const ProjectStageInfo: Project_StageModel = useAppSelector((state: any) => state.stages.projectStageInfo);
@@ -37,6 +65,7 @@ const Chat = () => {
   // console.log("ProjectStageInfo", ProjectStageInfo);
   // console.log("threadSelected", threadSelected);
   // console.log("stageMessages en chat", stageMessages);
+  console.log("images en chat", images);
 
   useEffect(() => {
     if (threadSelected.thread_id) {
@@ -91,6 +120,7 @@ const Chat = () => {
           .then((result: any) => {
             if (result.data.message == "Thread deleted") {
               dispatch(cleanChat())
+              setExpandedIndex(null)
               Swal.fire({
                 heightAuto: false,
                 title: "Deleted!",
@@ -155,6 +185,12 @@ const Chat = () => {
     <div className="chat-container">
       {Object.keys(stage).length ? <div className='container_all'>
         <div className='container_title'>
+          <div className='stage'>
+            Stage:<div className='Name_Stage'>
+              {stage.name}
+            </div>
+          </div>
+
           <div className='thread_assistant'> <button onClick={handleCleanThread} className='btn_clean' aria-label="Clean thread" data-balloon-pos="down"><GiBroom className='clean_ico' /></button> Thread: <div className='thread_content'>
             <CopyToClipboard text={threadSelected.assistant_thread_id}
               onCopy={() => {
@@ -203,10 +239,12 @@ const Chat = () => {
           ))}
           {<div className='loaderDiv'>{loadingMsg && <img src={loader} alt="" className="loader" />}</div>}
         </div>
-        <form className="chat-input" onSubmit={(e) => {
-          e.preventDefault();
-          sendMessage();
-        }}>
+        <div className="chat-input"
+        // onSubmit={(e) => {
+        //   e.preventDefault();
+        //   sendMessage();
+        // }}
+        >
           <div className='div_images'>
             {images.length > 0 && images.map((image, index) => (
               <div key={index} className='imageContainer'>
@@ -221,19 +259,32 @@ const Chat = () => {
           <div className='images_input'>
             <button type='button' onClick={handleAddImage} className='Add_image' aria-label="Add image" data-balloon-pos="up"><BsImages className='sendImage' /></button>
             {/* <button type='button' onClick={handleAddImage} className='Add_image' aria-label="Add image" data-balloon-pos="up"><BsImages className='sendImage' /></button> */}
-
-            <input
+            <CssTextField
+              id="standard-basic"
+              multiline
+              maxRows={5}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Enter your message..."
+              variant="outlined"
+              fullWidth
+              className='text_area'
+            />
+            <button onClick={sendMessage} className='btn' disabled={loadingMsg || inputValue == ''}>Send</button>
+            {/* <input
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder='Enter your message...'
             />
-            <button type="submit" className='btn' disabled={loadingMsg || inputValue == ''}>Send</button>
+            <button type="button" onClick={sendMessage} className='btn' disabled={loadingMsg || inputValue == ''}>Send</button> */}
           </div>
-        </form>
+        </div>
       </div>
         : <div className='selectAnyStage'> Select stage</div>}
+      {/* <CssTextField label="Custom CSS" id="custom-css-outlined-input" /> */}
     </div>
+
   );
 };
 

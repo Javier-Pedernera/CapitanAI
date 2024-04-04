@@ -14,7 +14,7 @@ const getStagesById = (stageId: string) => {
 
 	return async (dispatch: Dispatch) => {
 		// console.log(stageId);
-		 
+
 		try {
 			const response = await axios.get(`${URL}/api/stages/${stageId}`);
 			console.log(response.data);
@@ -51,19 +51,7 @@ const createStage = (dataP_S: any, data: any) => {
 
 			const JoinStageProject: any = await axios.post(`${URL}/api/projects/${dataP_S.projectId}/stages`, dataProjectStage);
 
-			console.log("JoinStageProject", JoinStageProject);
-
-			// if (JoinStageProject.status == 200) {
-			// 	const datathread = {
-			// 		"stage_id": response.data.id,
-			// 		"project_id": dataP_S.projectId,
-			// 		"assistant_thread_id": JoinStageProject.data.thread_id,
-			// 		"user_id": userId
-			// 	}
-			// 	// const JoinThread = await axios.post(`${URL}/api/threads`, datathread);
-			// 	// console.log("JoinThread", JoinThread);
-			// 	return JoinThread
-			// }
+			// console.log("JoinStageProject", JoinStageProject);
 			return JoinStageProject
 		} catch (error: any) {
 			console.error('error en createStage', error);
@@ -88,11 +76,23 @@ const stageDeleted = (projectId: string, stageId: string) => {
 	// console.log(projectId, stageId);
 	return async () => {
 		try {
+			const responsethreadInfo = await axios.get(`${URL}/api/threads/${projectId}/${stageId}`);
 			// para eliminar la stage debe eliminar mensajes, hilos y relacion project, stage
-			const responseStage_thread = await axios.delete(`${URL}/api/threads/${projectId}/${stageId}`);
+			console.log("responsethreadInfo", responsethreadInfo);
+
+			const thread= responsethreadInfo.data
+			console.log("resultado del a info del thread", thread);
+
+			var responseStage_thread
+			if (thread !== "The project stage combination does not have an associated thread") {
+				responseStage_thread = await axios.delete(`${URL}/api/threads/${thread.thread_id}`);
+			}
+			// console.log("Delete__________responseStage_thread",responseStage_thread);
 			const responseStage_project = await axios.delete(`${URL}/api/projects/${projectId}/stages/${stageId}`);
+			// console.log("Delete__________responseStage_project",responseStage_project);
 			const responseStage = await axios.delete(`${URL}/api/stages/${stageId}`);
-			if (responseStage_thread.status == 200 &&responseStage_project.status == 200 && responseStage.status == 200) {
+			// console.log("Delete__________responseStage",responseStage);
+			if (responseStage_thread?.status == 200 && responseStage_project.status == 200 && responseStage.status == 200) {
 				return "Stage deleted"
 			} else {
 				return "error en delete stage o stage_project"

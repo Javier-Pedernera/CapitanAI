@@ -15,6 +15,8 @@ import { IoIosArrowDown, IoMdArrowRoundBack } from "react-icons/io";
 import User from '../../Models/User';
 import { FaCircleArrowLeft, FaCircleArrowRight } from 'react-icons/fa6';
 import { cleanChat, createNewThread, getThreadInfo } from '../../Redux/Actions/MessageGet';
+import Project_StageModel from '../../Models/Project_Stage';
+import Thread from '../../Models/Thread';
 
 const ProjectRun = () => {
 
@@ -22,9 +24,13 @@ const ProjectRun = () => {
   const stagesProject: CreateStage[] = useAppSelector((state: any) => state.stages.stagesProyect);
   const actualProject: ProjectModel = useAppSelector((state: any) => state.projects.projectActual);
   const stageSelected: any = useAppSelector((state: any) => state.stages.stageSelected);
+  const threadSelected: Thread = useAppSelector((state: any) => state.messages.threadSelected);
   // const [selectStage, setselectStage] = useState<Stage | null>(null);
   const [isStageListVisible, setIsStageListVisible] = useState(true);
-  // console.log("userActive", userActive);
+  const ProjectStageInfo: Project_StageModel = useAppSelector((state: any) => state.stages.projectStageInfo);
+  console.log(ProjectStageInfo);
+
+  console.log("threadSelected", Object.keys(threadSelected).length);
   // console.log("actualProyect", actualProject);
   // console.log("stages del proyecto actual", stagesProject);
   console.log("stage seleccionada", stageSelected);
@@ -61,6 +67,7 @@ const ProjectRun = () => {
           "project_id": projectId,
           "user_public_id": userActive.id
         }
+        dispatch(selectProyect_StageByIds(projectId, stageId))
         return dispatch(createNewThread(datathread))
       }
       dispatch(selectProyect_StageByIds(projectId, stageId))
@@ -123,7 +130,7 @@ const ProjectRun = () => {
       </div>
 
       <div className={isStageListVisible ? 'connection_stage' : 'connection_stage_full'}>
-        <Chat />
+        <Chat setExpandedIndex={setExpandedIndex}/>
       </div>
 
     </div >

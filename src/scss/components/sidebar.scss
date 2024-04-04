@@ -8,7 +8,7 @@
 
 .sidebar {
   display: flex;
-    width: 60px;
+    min-width: 60px;
     // height: 100vh;
     // height: 100%;
     background-color: var(--primary-color);
@@ -18,7 +18,7 @@
     justify-content: space-between;
   
     &.open {
-      width: 200px;
+      min-width: 200px;
       display: flex;
     }
   

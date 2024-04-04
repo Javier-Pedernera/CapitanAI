@@ -11,10 +11,13 @@ export default interface ProjectCreate {
 const URL = import.meta.env.VITE_API_URL
 // traer stage por id para la stage seleccionada
 const getStagesById = (stageId: string) => {
+
 	return async (dispatch: Dispatch) => {
+		// console.log(stageId);
+		 
 		try {
 			const response = await axios.get(`${URL}/api/stages/${stageId}`);
-			// console.log(response.data);
+			console.log(response.data);
 			dispatch(selectStageById(response.data))
 		} catch (error: any) {
 			console.error('error en getstageByID', error);

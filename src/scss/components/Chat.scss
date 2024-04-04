@@ -118,15 +118,19 @@
   .chat-input {
     margin-top: 10px;
     display: flex;
-    width: 85%;
+    flex-direction: column;
+    width: 90%;
     padding: 30px;
 //borde o no?
     border: 1px solid rgba(204, 204, 204, 0.3019607843);
     border-radius: 5px;
+    // align-items: center;
+    justify-content: space-between;
   }
   
   .chat-input input {
-    flex: 1;
+    width: 80%;
+    // flex: 1;
     font-family: var(--font-poppins);
     font-family: var(--font--robotoFlex);
     font-size: small;
@@ -243,6 +247,19 @@
       --balloon-move: 20px;
       --balloon-font-size: 10px;
   }
+
+  .Add_image{
+    width: 40px;
+    height: 40px;
+    --balloon-font-color: var(--primary-color);
+      --balloon-color: #e5ae22d3;
+      --balloon-move: 20px;
+      --balloon-font-size: 10px;
+      & svg{
+        width: 20px;
+    height: 20px;
+      }
+  }
   .Assisstant_copied{
     display: flex;
     align-items: center;
@@ -333,4 +350,69 @@ color: var(--yellow-color);
   .code_Text{
     display: flex;
     width: 100%;
+  }
+  .sendImage{
+    color: #a6a6a6;
+    &:hover{
+      color: var(--yellow-color);
+    }
+  }
+
+  div:where(.swal2-container) .swal2-file {
+    
+    background-color: #b1861a;
+  // &button{
+  //   height: 200px;
+  // }
+  
+  }
+  // #file-upload-button{
+  //   height: 200px;
+  //   background-color: #b1861a;
+  //   color: red;
+  // }
+
+  .images_added{
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin-left: 20px;
+    transition: filter 0.3s ease;
+  }
+  .images_input{
+    display: flex;
+    flex-direction: row;
+    // margin-bottom: 30px;
+    margin-top: 30px;
+  }
+  .div_images{
+    display: flex;
+    padding: 5px;
+  }
+  .imageWrapper {
+    position: relative;
+  }
+  .deleteImageButton{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: larger;
+    font-weight: 600;
+    // padding: 5px;
+    width: 50px;
+    height: 50px;
+    // color: var(--yellow-color);
+    color: var(--primary-color);
+    // background-color: rgba(255, 255, 255, 0.293);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    visibility: hidden;
+  }
+  .imageWrapper:hover .deleteImageButton {
+    visibility: visible;
+  }
+  
+  .imageWrapper:hover .images_added {
+    filter: blur(2px);
   }

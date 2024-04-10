@@ -5,7 +5,8 @@ import { UserState } from "../../Redux/Actions/UserSlice";
 import { useAppDispatch, useAppSelector } from "../../Redux/Store/hooks";
 import ProjectCreate, { createProject, deleteProject, getProjectsUser } from "../../Redux/Actions/ProjectsGet";
 import { useEffect } from "react";
-import ok from "../../assets/images/check.png";
+// import ok from "../../assets/images/check.png";
+import users from "../../assets/images/iconoUsers2.png";
 import { GrConfigure, GrSchedulePlay } from "react-icons/gr";
 import 'balloon-css';
 import ProjectModel from "../../Models/Project";
@@ -23,7 +24,7 @@ const Dashboard = () => {
   const userRole = "Admin"
 
   const user: any = userActive.userData
-  // console.log(ProjectsUser);
+  console.log("ProjectsUser",ProjectsUser);
   // console.log(user);
 
   useEffect(() => {
@@ -139,7 +140,8 @@ const Dashboard = () => {
             <th className="description_column">Description</th>
             {/* <th>Stage</th> */}
             <th>Date</th>
-            <th>State</th>
+            {/* <th>State</th> */}
+            <th title="Users quantity"><img src={users} className="iconousers" alt="users" /></th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -156,7 +158,8 @@ const Dashboard = () => {
                 </td>
                 <td>{project.date}</td>
                 <td>
-                  <img src={ok} alt="ok" className="ok" />
+                  {project.collaborators.length}
+                  {/* <img src={ok} alt="ok" className="ok" /> */}
                 </td>
                 <td className="btns_p">
                   <div className="btnEdithDel">

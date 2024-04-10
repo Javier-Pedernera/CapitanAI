@@ -184,12 +184,14 @@ const Chat: React.FC<ChatProps> = ({ setExpandedIndex }) => {
 
     <div className="chat-container">
       {Object.keys(stage).length ? <div className='container_all'>
-        <div className='container_title'>
-          <div className='stage'>
-            Stage:<div className='Name_Stage'>
+        <div className='stage'>
+            {/* Stage: */}
+            <div className='Name_Stage'>
               {stage.name}
             </div>
           </div>
+        <div className='container_title'>
+          
 
           <div className='thread_assistant'> <button onClick={handleCleanThread} className='btn_clean' aria-label="Clean thread" data-balloon-pos="down"><GiBroom className='clean_ico' /></button> Thread: <div className='thread_content'>
             <CopyToClipboard text={threadSelected.assistant_thread_id}

@@ -51,9 +51,9 @@ const ProjectEdit = () => {
   // const [selectStage, setselectStage] = useState<Stage | null>(null);
 
   const user = userActive.userData
-  console.log("stagesProjects", stagesProject);
+  // console.log("stagesProjects", stagesProject);
   // console.log("Project en edit ", actualProject);
-  console.log("userActive Id", user);
+  // console.log("userActive Id", user);
   // console.log("asistentes actuales en projectedit", actualAssistants);
   // console.log("asistentes .LENGTH actuales en projectedit", actualAssistants.length);
   useEffect(() => {

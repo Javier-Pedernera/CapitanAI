@@ -75,6 +75,7 @@
       }
   
       th {
+        height: 50px;
         background-color: var(--primary-color);
         color: white;
         text-align: center;
@@ -85,6 +86,7 @@
         .link{
             text-decoration: none;
             font-size: medium;
+            cursor: pointer;
             &:hover {
                 text-decoration: none;
                 color: var(--yellow-color);
@@ -189,4 +191,9 @@
   }
   .description_column{
     width: 40%;
+  }
+
+  .iconousers{
+    padding: 2px;
+    height: 25px;
   }

@@ -54,7 +54,7 @@ height: 30px;
 }
 .stage-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(90%, 1fr));
   gap: 4px;
   margin-top: 20px 
 }
@@ -198,7 +198,7 @@ color: var(--primary-color);
   }
 }
 .cards-stage{
-  width: 25%;
+  width: 95%;
   min-width: 250px;
   padding-top: 50px
 }
@@ -209,7 +209,7 @@ color: var(--primary-color);
   margin-top: 5px;
 }
 .connection_stage{
-width: 75%;
+width: 100%;
 }
 .connection_stage_full{
   width: 90%;

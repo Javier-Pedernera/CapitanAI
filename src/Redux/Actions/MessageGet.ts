@@ -42,23 +42,33 @@ const getAllMessages = (thread_id: string) => {
         try {
             const response = await axios.get(`${URL}/api/messages/threads/${thread_id}`);
             if (response.status === 200) {
-                // Filtrar y modificar los mensajes del asistente si contienen la etiqueta <CODIGO>
                 const modifiedMessages = response.data.map((message: any) => {
-                    // console.log((message.sender === 'assistant' && message.message.includes('<CODIGO>') || message.message.includes('<CODE>') && message.message.includes('</CODIGO>') || message.message.includes( '</CODE>')))
                     if ((message.sender === 'assistant' && message.message.includes('<CODIGO>') || message.message.includes('<CODE>') && message.message.includes('</CODIGO>') || message.message.includes('</CODE>'))) {
-                        //    const replacedMessage = message.message.replace(/<CODE\/>/g, '<CODIGO>').replace(/<\/CODE\/>/g, '</CODIGO>'); cambiar palabra y no etiqueta
                         const replacedMessage = message.message.replace(/CODE>/g, 'CODIGO>');
-                        // console.log("mensaje dentro del map despues de reemplaza code",message.message);
-                        // console.log("replacedMessage",replacedMessage);
-
                         const parts = splitMessage(replacedMessage);
                         return {
                             ...message,
                             message: parts
                         };
                     }
-                    // console.log("message en el get",message);
-
+                    if (message.sender === 'assistant' && /```/.test(message.message)) {
+                        let replacedMessage = message.message.replace(/```/g, '<CODIGO>```');
+                        // const partsCODIGO = replacedMessage.split('<CODIGO>');
+                        let count = 0; 
+let result = replacedMessage.replace(/<CODIGO>```/g, function(match:any) {
+    count++;
+    if (count % 2 == 0) {
+        return "```</CODIGO>";
+    } else {
+        return match;
+    }
+});
+                        const parts = splitMessage(result);
+                        return {
+                            ...message,
+                            message: parts
+                        };
+                    }
                     return message;
                 });
                 return dispatch(getAllMessagesThread(modifiedMessages));

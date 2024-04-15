@@ -31,14 +31,14 @@ const CodeFragment: React.FC<Props> = ({ code }) => {
     }
 
 
-    // console.log("language", language);
+    console.log("language", language);
     // console.log("codeContent", codeContent);
 
     return (
         <div className="message">
             <div className='lang_style'>
                 {
-                    language ? <div >{language}</div> : <div></div>
+                    language ? <div className='styleLanguage'>{language}</div> : <div></div>
                 }
 
                 <CopyToClipboard text={codeContent}

@@ -10,7 +10,7 @@
   }
 
   .lang_style{
-    background-color: rgb(150, 149, 149);
+    background-color: var(--primary-color);
     color: #fff;
     padding: 10px;
     border-radius: 5px 5px 0px 0px;
@@ -46,4 +46,12 @@
   color: var(--yellow-color);
   width: 15px;
   height: 15px;
+}
+.styleLanguage{
+  color: #ffc942;
+  font-size: 0.8rem;
+  &:hover{
+    color: #ffbc13;
+    font-weight: 600;
+  }
 }

@@ -64,7 +64,7 @@ const Chat: React.FC<ChatProps> = ({ setExpandedIndex }) => {
   // console.log("project en el chat", projectId);
   // console.log("ProjectStageInfo", ProjectStageInfo);
   // console.log("threadSelected", threadSelected);
-  // console.log("stageMessages en chat", stageMessages);
+  console.log("stageMessages en chat", stageMessages);
   console.log("images en chat", images);
 
   useEffect(() => {
@@ -229,11 +229,24 @@ const Chat: React.FC<ChatProps> = ({ setExpandedIndex }) => {
 
                   </div>
                   <div key={msg.message_id} className='msgWithCode'>
-                    {msg.message.map((msgCod: any, index: any) => !msgCod.isCode ?
-                      <div className='code_Text' key={index}>{msgCod.content}</div>
-                      : <div className="msgAssistant">
-                        <CodeFragment code={msgCod.content} />
-                      </div>)}
+                  {msg.message.map((msgCod: any, index: any) => {
+    let content = msgCod.content;
+    let isTitle = false;
+
+    if (content && typeof content === 'string' && /###/.test(content)) {
+        isTitle = true;
+        content = content.replace(/###/, '');
+    }
+    return !msgCod.isCode ? (
+        <code className={`code_Text ${isTitle ? 'tituloResaltado' : ''}`} key={index}>
+            {content}
+        </code>
+    ) : (
+        <div className="msgAssistant" key={index}>
+            <CodeFragment code={msgCod.content} />
+        </div>
+    );
+})}
                   </div>
                 </div>
               }

@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../scss/components/_CodeFragment.scss';
 import { LiaClipboard, LiaClipboardCheckSolid } from 'react-icons/lia';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import 'balloon-css';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/monokai-sublime.css';
 
 interface Props {
     code: string;
 }
 
 const CodeFragment: React.FC<Props> = ({ code }) => {
-
+    useEffect(() => {
+        hljs.highlightAll();
+    }, []);
     const [codeCopy, setCodeCopy] = useState(false);
     // console.log("code puro a codeFragment",code);
 
@@ -32,15 +36,13 @@ const CodeFragment: React.FC<Props> = ({ code }) => {
 
 
     // console.log("language", language);
-    // console.log("codeContent", codeContent);
 
     return (
         <div className="message">
             <div className='lang_style'>
                 {
-                    language ? <div >{language}</div> : <div></div>
+                    language ? <div className='styleLanguage'>{language}</div> : <div></div>
                 }
-
                 <CopyToClipboard text={codeContent}
                     onCopy={() => {
                         setCodeCopy(true);
@@ -48,10 +50,9 @@ const CodeFragment: React.FC<Props> = ({ code }) => {
                     {codeCopy ? <button className='btn_copy'><LiaClipboardCheckSolid className='icoCopied' />Copied code!</button> : <button aria-label="Copy" data-balloon-pos="down" className='btn_copy'><LiaClipboard className='icoCopy' />Copy code</button>
                     }</CopyToClipboard>
             </div>
-
             <pre className="code-fragment">
 
-                <code lang={language ? language : ""}>
+                <code className={`language-${language}`}>
                     {codeContent}
                 </code>
             </pre>

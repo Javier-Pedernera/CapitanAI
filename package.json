@@ -18,6 +18,7 @@
     "@types/js-cookie": "^3.0.6",
     "axios": "^1.6.7",
     "balloon-css": "^1.2.0",
+    "highlight.js": "^11.9.0",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",

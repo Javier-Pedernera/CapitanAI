@@ -21,7 +21,6 @@ interface MessagePart {
       }
       const codeEndIndex = message.indexOf('</CODIGO>', codeStartIndex);
       if (codeEndIndex === -1) {
-        // No se encontró el final del código, el mensaje está mal formateado IMPORTANTE PARA DETECTAR ERROR
         console.error('Mensaje mal formateado: no se encontró el final del código.');
         return [];
       }

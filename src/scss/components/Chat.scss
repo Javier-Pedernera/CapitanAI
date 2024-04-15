@@ -196,7 +196,7 @@
     font-family: var(--font--Serif);
     font-size: smaller;
     // color: var(--primary-color);
-    color: rgba(44, 43, 43, 0.914);
+    color: rgba(15, 15, 15, 0.914);
     margin-bottom: 10px;
     border-radius: 10px;
     padding: 2px;
@@ -335,10 +335,16 @@ color: var(--yellow-color);
   }
   .messageText{
     width: fit-content;
+    
   }
   .code_Text{
+    font-family: var(--font-poppins);
     display: flex;
     width: 100%;
+    &.tituloResaltado{
+      font-size: small;
+      color: #222;
+      }
   }
   .sendImage{
     min-width: 25px;
@@ -444,3 +450,4 @@ color: var(--yellow-color);
     }
     
   }
+  
